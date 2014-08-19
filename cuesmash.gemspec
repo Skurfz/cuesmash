@@ -3,10 +3,10 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
-  spec.name          = "calasmash"
+  spec.name          = "cuesmash"
   spec.version       = "1.0.4"
-  spec.authors       = ["Alex Fish"]
-  spec.email         = ["fish@ustwo.co.uk"]
+  spec.authors       = ["Alex Fish", "Jarod McBride"]
+  spec.email         = ["fish@ustwo.co.uk", "jarod@ustwo.com"]
   spec.description   = "A gift for Juan"
   spec.summary       = "Compile an app, point the app at sinatra, run cucumber"
   spec.homepage      = ""
@@ -24,5 +24,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency("CFPropertyList")
 
-  spec.executables << "calasmash"
+  spec.executables << "cuesmash"
 end

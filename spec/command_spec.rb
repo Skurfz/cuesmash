@@ -1,94 +1,94 @@
 require 'spec_helper'
 
-describe Calasmash::Command do
+describe Cuesmash::Command do
 
   describe "when executing" do
 
     before(:each) do
-      Calasmash::Command.stub(:compile)
-      Calasmash::Command.stub(:parse){nil}
+      Cuesmash::Command.stub(:compile)
+      Cuesmash::Command.stub(:parse){nil}
     end
 
     it "should output the overview if missing args" do
-      Calasmash::Command.should_receive(:overview)
-      Calasmash::Command.execute
+      Cuesmash::Command.should_receive(:overview)
+      Cuesmash::Command.execute
     end
   end
 
   describe "when starting a compile" do
 
     before(:each) do
-      @mock = double(Calasmash::Compiler)
+      @mock = double(Cuesmash::Compiler)
       @mock.stub(:compile)
-      Calasmash::Compiler.stub(:new){@mock}
+      Cuesmash::Compiler.stub(:new){@mock}
     end
 
-    it "should set the compilers scheme" do
-      Calasmash::Compiler.should_receive(:new).with("scheme")
-      Calasmash::Command.compile("scheme")
+    it "should set the compilers scheme and tmp dir" do
+      Cuesmash::Compiler.should_receive(:new).with("scheme", "/tmp")
+      Cuesmash::Command.compile("scheme", "/tmp")
     end
 
     it "should start compiling" do
       @mock.should_receive(:compile)
-      Calasmash::Command.compile("scheme")
+      Cuesmash::Command.compile("scheme", "/tmp")
     end
   end
 
   describe "when updating the plist" do
 
     before(:each ) do
-      @mock = double(Calasmash::Plist)
+      @mock = double(Cuesmash::Plist)
       @mock.stub(:execute)
-      Calasmash::Plist.stub(:new){@mock}
+      Cuesmash::Plist.stub(:new){@mock}
     end
 
     it "should set the plists scheme" do
-      Calasmash::Plist.should_receive(:new).with("scheme")
-      Calasmash::Command.update_plist("scheme")
+      Cuesmash::Plist.should_receive(:new).with("scheme")
+      Cuesmash::Command.update_plist("scheme")
     end
 
     it "should execute the plist update" do
       @mock.should_receive(:execute)
-      Calasmash::Command.update_plist("scheme")
+      Cuesmash::Command.update_plist("scheme")
     end
 
     describe "when running the cucumber tests" do
 
       before(:each ) do
-        @mock = double(Calasmash::Cucumber)
+        @mock = double(Cuesmash::Cucumber)
         @mock.stub(:test)
-        Calasmash::Cucumber.stub(:new){@mock}
+        Cuesmash::Cucumber.stub(:new){@mock}
       end
 
       it "should set the cucumber ios version" do
-        Calasmash::Cucumber.should_receive(:new).with("ios", anything)
-        Calasmash::Command.run_tests("ios", "tags")
+        Cuesmash::Cucumber.should_receive(:new).with("ios", anything)
+        Cuesmash::Command.run_tests("ios", "tags")
       end
 
       it "should set the cucumber tags" do
-        Calasmash::Cucumber.should_receive(:new).with(anything, "tags")
-        Calasmash::Command.run_tests("ios", "tags")
+        Cuesmash::Cucumber.should_receive(:new).with(anything, "tags")
+        Cuesmash::Command.run_tests("ios", "tags")
       end
 
       it "should set the format" do
-        @cucumber = Calasmash::Cucumber.new
-        Calasmash::Cucumber.stub(:new){@cucumber}
+        @cucumber = Cuesmash::Cucumber.new
+        Cuesmash::Cucumber.stub(:new){@cucumber}
 
         @cucumber.should_receive(:format=)
-        Calasmash::Command.run_tests(nil, nil, "format")
+        Cuesmash::Command.run_tests(nil, nil, "format")
       end
 
       it "should set the output" do
-        @cucumber = Calasmash::Cucumber.new
-        Calasmash::Cucumber.stub(:new){@cucumber}
+        @cucumber = Cuesmash::Cucumber.new
+        Cuesmash::Cucumber.stub(:new){@cucumber}
 
         @cucumber.should_receive(:output=)
-        Calasmash::Command.run_tests(nil, nil, nil, "output")
+        Cuesmash::Command.run_tests(nil, nil, nil, "output")
       end
 
       it "should start the tests" do
         @mock.should_receive(:test)
-        Calasmash::Command.run_tests("ios", "tags")
+        Cuesmash::Command.run_tests("ios", "tags")
       end
 
     end

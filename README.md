@@ -1,16 +1,16 @@
-calasmash
+cuesmash
 =========
 
-[![Gem Version](https://badge.fury.io/rb/calasmash.png)](http://badge.fury.io/rb/calasmash)
-[![Build Status](https://travis-ci.org/ustwo/calasmash.png?branch=master)](https://travis-ci.org/ustwo/calasmash)
+[![Gem Version](https://badge.fury.io/rb/cuesmash.png)](http://badge.fury.io/rb/cuesmash)
+[![Build Status](https://travis-ci.org/ustwo/cuesmash.png?branch=master)](https://travis-ci.org/ustwo/cuesmash)
 
-Calasmash provides an interface to run a suite of calabash-ios tests against an iOS application using a mocked backend.
+Cuesmash provides an interface to run a suite of calabash-ios tests against an iOS application using a mocked backend.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'calasmash'
+    gem 'cuesmash'
 
 And then execute:
 
@@ -20,7 +20,7 @@ And then execute:
 
 Simply run the command below with your preferred arguments.
 
-    calasmash
+    cuesmash
 
 ### Options
 
@@ -38,7 +38,7 @@ The iOS application should contain a `server_config.plist` file in the following
 
 [Sample plist](https://gist.github.com/alexfish/7505037)
 
-calasmash will update the port and url values before launching the application, your iOS application will need to use the plist values when running it's calabash-ios target.
+cuesmash will update the port and url values before launching the application, your iOS application will need to use the plist values when running it's calabash-ios target.
 
 You can then use a method along these lines to get the url in the iOS application when running the calabash target and direct any API requests to the url.
 

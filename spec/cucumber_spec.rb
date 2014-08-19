@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Calasmash::Cucumber do
+describe Cuesmash::Cucumber do
 
   before(:each) do
-    Calasmash::Cucumber.any_instance.stub(:puts)
+    Cuesmash::Cucumber.any_instance.stub(:puts)
   end
 
   describe "when running the tests" do
@@ -15,7 +15,7 @@ describe Calasmash::Cucumber do
       wait.stub(:join)
       Open3.stub(:popen3).and_yield(nil, nil, nil, wait)
 
-      @cucumber = Calasmash::Cucumber.new(nil, nil)
+      @cucumber = Cuesmash::Cucumber.new(nil, nil)
       @cucumber.stub(:command)
     end
 
@@ -34,57 +34,57 @@ describe Calasmash::Cucumber do
   describe "when generating the command" do
 
     it "should add the ios version" do
-      @cucumber = Calasmash::Cucumber.new("7.0", nil)
+      @cucumber = Cuesmash::Cucumber.new("7.0", nil)
       @cucumber.stub(:tag_arguments)
 
       @cucumber.instance_eval{command}.should match(/DEVICE_TARGET='iPhone Retina \(4-inch\) - Simulator - iOS 7.0'/)
     end
 
     it "should not add the ios version if missing" do
-      @cucumber = Calasmash::Cucumber.new(nil, nil)
+      @cucumber = Cuesmash::Cucumber.new(nil, nil)
       @cucumber.stub(:tag_arguments)
 
       @cucumber.instance_eval{command}.should_not match(/DEVICE_TARGET/)
     end
 
     it "should add the format" do
-      @cucumber = Calasmash::Cucumber.new(nil, nil)
+      @cucumber = Cuesmash::Cucumber.new(nil, nil)
       @cucumber.format = "test-format"
 
       @cucumber.instance_eval{command}.should match(/--format test-format/)
     end
 
     it "should not add the format if missing" do
-      @cucumber = Calasmash::Cucumber.new(nil, nil)
+      @cucumber = Cuesmash::Cucumber.new(nil, nil)
 
       @cucumber.instance_eval{command}.should_not match(/--format/)
     end
 
     it "should add the output" do
-      @cucumber = Calasmash::Cucumber.new(nil, nil)
+      @cucumber = Cuesmash::Cucumber.new(nil, nil)
       @cucumber.output = "test-output"
 
       @cucumber.instance_eval{command}.should match(/--out test-output/)
     end
 
     it "should not add the output if missing" do
-      @cucumber = Calasmash::Cucumber.new(nil, nil)
+      @cucumber = Cuesmash::Cucumber.new(nil, nil)
 
       @cucumber.instance_eval{command}.should_not match(/--out/)
     end
 
     it "should add the tags" do
-      @cucumber = Calasmash::Cucumber.new(nil, ["tag1", "tag2"])
+      @cucumber = Cuesmash::Cucumber.new(nil, ["tag1", "tag2"])
       @cucumber.instance_eval{command}.should match(/--tags tag1 --tags tag2/)
     end
 
     it "should not add tags if missing" do
-      @cucumber = Calasmash::Cucumber.new(nil, nil)
+      @cucumber = Cuesmash::Cucumber.new(nil, nil)
       @cucumber.instance_eval{command}.should_not match(/--tags/)
     end
 
     it "should add the color flag" do
-      @cucumber = Calasmash::Cucumber.new(nil, nil)
+      @cucumber = Cuesmash::Cucumber.new(nil, nil)
       @cucumber.instance_eval{command}.should match(/-c/)
     end
 

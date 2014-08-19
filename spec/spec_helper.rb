@@ -1,1 +1,1 @@
-require "calasmash"
+require "cuesmash"

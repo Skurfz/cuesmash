@@ -7,12 +7,13 @@ require 'cfpropertylist'
 require 'find'
 require 'socket'
 require 'fileutils'
+require 'tmpdir'
 
-require 'calasmash/command'
-require 'calasmash/compiler'
-require 'calasmash/plist'
-require 'calasmash/cucumber'
+require 'cuesmash/command'
+require 'cuesmash/compiler'
+require 'cuesmash/plist'
+require 'cuesmash/cucumber'
 
-module Calasmash
+module Cuesmash
   PORT = 4567
 end

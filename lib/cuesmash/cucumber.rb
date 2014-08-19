@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # coding: utf-8
 
-module Calasmash
+module Cuesmash
 
   #
   # Provides a nice interface to cucumber, allowing

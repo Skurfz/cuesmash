@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Calasmash::Plist do
+describe Cuesmash::Plist do
 
   describe "when executed" do
 
     before(:each) do
-      @plist = Calasmash::Plist.new("scheme")
+      @plist = Cuesmash::Plist.new("scheme")
       @plist.stub(:update)
       @plist.stub(:clear)
       @plist.stub(:completed)
@@ -26,7 +26,7 @@ describe Calasmash::Plist do
   describe "when clearing" do
 
     before(:each) do
-      @plist = Calasmash::Plist.new("scheme")
+      @plist = Cuesmash::Plist.new("scheme")
       @plist.stub(:update)
       @plist.stub(:completed)
       @plist.stub(:started)
@@ -50,7 +50,7 @@ describe Calasmash::Plist do
       CFPropertyList.stub(:native_types){@cfplist}
       CFPropertyList.stub(:guess)
 
-      @plist = Calasmash::Plist.new("scheme")
+      @plist = Cuesmash::Plist.new("scheme")
       @plist.stub(:clear)
       @plist.stub(:completed)
       @plist.stub(:started)
@@ -59,7 +59,7 @@ describe Calasmash::Plist do
 
     it "should set the server ip and port" do
       @plist.stub(:server_ip){"server_ip"}
-      stub_const("Calasmash::PORT", 123)
+      stub_const("Cuesmash::PORT", 123)
 
       @cfplist.should_receive(:[]=).with("url_preference", "server_ip")
       @cfplist.should_receive(:[]=).with("port_preference", 123)

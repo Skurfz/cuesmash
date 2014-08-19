@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 # coding: utf-8
 
-module Calasmash
+module Cuesmash
 
   #
-  # Does some fun stuff with Xcode plists, calasmash needs to update
+  # Does some fun stuff with Xcode plists, cuesmash needs to update
   # the Xcode projects plist to trick the simulator into connecting
   # to a sinatra server instead
   #
@@ -61,7 +61,7 @@ module Calasmash
       plist = CFPropertyList.native_types(plist_file.value)
 
       plist["url_preference"] = server_ip
-      plist["port_preference"] = Calasmash::PORT
+      plist["port_preference"] = Cuesmash::PORT
 
       plist_file.value = CFPropertyList.guess(plist)
       plist_file.save(server_plist_path, CFPropertyList::List::FORMAT_XML)

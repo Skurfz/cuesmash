@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # coding: utf-8
 
-module Calasmash
+module Cuesmash
 
   #
   # The main point of entry for all commands, Command parses command line arguments
@@ -31,13 +31,18 @@ module Calasmash
         format  = options[:format]
         output  = options[:output]
 
+        # get the tmp_dir for build
+        tmp_dir = Dir.mktmpdir(scheme)
         # Compile the project
-        compile(scheme) do
+        compile(scheme, tmp_dir) do
           # Update the plist
           update_plist(scheme)
           # Run the tests
           run_tests(ios, tags, format, output)
         end
+
+        # clean up temp dir
+        FileUitls.remove_entry tmp_dir
       end
 
       #
@@ -77,10 +82,11 @@ module Calasmash
       #
       # Kick off a compile
       # @param  scheme [String] The scheme to compile
+      # @param  app_dir [String] the directory where the .app file will be
       # @param  &compiled [Block] Completion block
       #
-      def compile(scheme, &compiled)
-        compiler = Calasmash::Compiler.new(scheme)
+      def compile(scheme, app_dir, &compiled)
+        compiler = Cuesmash::Compiler.new(scheme, app_dir)
         compiler.compile do |complete|
           yield
         end
@@ -92,7 +98,7 @@ module Calasmash
       # @param  scheme [String] The scheme related to the application
       #
       def update_plist(scheme)
-        plist = Calasmash::Plist.new(scheme)
+        plist = Cuesmash::Plist.new(scheme)
         plist.execute
       end
 
@@ -104,17 +110,24 @@ module Calasmash
       # @param  format [String] The output format for the cucumber tests, Optional
       # @param  output [String] The path to the output directory to output test reports to, Optional
       def run_tests(ios, tags, format=nil, output=nil)
-        cucumber = Calasmash::Cucumber.new(ios, tags)
+        cucumber = Cuesmash::Cucumber.new(ios, tags)
         cucumber.format = format if format
         cucumber.output = output if output
         cucumber.test
       end
 
       #
+      # Update appium.txt file with the directory of the build product
+      #
+      def create_appium_txt
+        appium = AppiumText.new(platform_name, device_name, platform_version, app)
+      end
+
+      #
       # Outputs a nice helpful banner overview to STDOUT
       #
       def overview
-        s = "Usage: calasmash [OPTIONS]"
+        s = "Usage: cuesmash [OPTIONS]"
         s << "\n  --tags -t the tags to pass to cucumber, for multiple tags pass one per tag"
         s << "\n  --scheme -s the Xcode scheme to build"
         s << "\n  --ios -i the iOS version to build with"

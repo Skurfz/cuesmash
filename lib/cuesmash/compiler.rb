@@ -1,6 +1,6 @@
 # coding: utf-8
 
-module Calasmash
+module Cuesmash
 
   #
   # The calamsash compiler will compiles the Xcode project with the
@@ -12,9 +12,11 @@ module Calasmash
 
     # Public: the Scheme the compiler is compiling
     attr_accessor :scheme
+    attr_accessor :tmp_dir
 
-    def initialize(scheme)
+    def initialize(scheme, tmp_dir)
       @scheme = scheme
+      @tmp_dir = tmp_dir
     end
 
     #
@@ -77,7 +79,9 @@ module Calasmash
                        -scheme #{@scheme} \
                        -sdk iphonesimulator \
                        CODE_SIGN_IDENTITY="" \
-                       CODE_SIGNING_REQUIRED=NO"
+                       CODE_SIGNING_REQUIRED=NO \
+                       -derivedDataPath #{@tmp_dir}"
+
 
       xcode_command
     end

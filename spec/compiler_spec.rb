@@ -1,32 +1,41 @@
 require 'spec_helper'
 
-describe Calasmash::Compiler do
+describe Cuesmash::Compiler do
 
   before(:each) do
-    Calasmash::Compiler.any_instance.stub(:puts)
+    Cuesmash::Compiler.any_instance.stub(:puts)
   end
 
   it "should have a scheme instance" do
-    compiler = Calasmash::Compiler.new("scheme")
+    compiler = Cuesmash::Compiler.new("scheme", "/tmp")
     compiler.scheme.should match("scheme")
+  end
+
+  it "should have a tmp_dir instance" do
+    compiler = Cuesmash::Compiler.new("scheme", "/tmp")
+    compiler.tmp_dir.should match("/tmp")
   end
 
   describe "when generating the command" do
 
     before(:each) do
-      Calasmash::Compiler.any_instance.stub(:workspace)
-      @compiler = Calasmash::Compiler.new("test-scheme")
+      Cuesmash::Compiler.any_instance.stub(:workspace)
+      @compiler = Cuesmash::Compiler.new("test-scheme", "/tmp")
     end
 
     it "should contain the scheme" do
       @compiler.instance_eval{command}.should match(/test-scheme/)
+    end
+
+    it "should contain the tmp path" do
+      @compiler.instance_eval{command}.should match(/tmp/)
     end
   end
 
   describe "when getting the workspacae" do
 
     before(:each) do
-      @compiler = Calasmash::Compiler.new(nil)
+      @compiler = Cuesmash::Compiler.new(nil, "/tmp")
       Dir.stub(:[]){["workspace-file"]}
     end
 
@@ -44,7 +53,7 @@ describe Calasmash::Compiler do
       wait.stub(:join)
       Open3.stub(:popen3).and_yield(nil, nil, nil, wait)
 
-      @compiler = Calasmash::Compiler.new(nil)
+      @compiler = Cuesmash::Compiler.new(nil, "/tmp")
     end
 
     it "should exit if something goes bad" do
