@@ -43,13 +43,13 @@ describe Cuesmash::Command do
     end
 
     it "should set the plists scheme" do
-      Cuesmash::Plist.should_receive(:new).with("scheme")
-      Cuesmash::Command.update_plist("scheme")
+      Cuesmash::Plist.should_receive(:new).with("scheme", "/tmp")
+      Cuesmash::Command.update_plist("scheme", "/tmp")
     end
 
     it "should execute the plist update" do
       @mock.should_receive(:execute)
-      Cuesmash::Command.update_plist("scheme")
+      Cuesmash::Command.update_plist("scheme", "/tmp")
     end
 
     describe "when running the cucumber tests" do

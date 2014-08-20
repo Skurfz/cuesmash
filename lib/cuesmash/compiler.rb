@@ -82,7 +82,7 @@ module Cuesmash
                        CODE_SIGNING_REQUIRED=NO \
                        -derivedDataPath #{@tmp_dir}"
 
-
+      puts "xcode_command == #{xcode_command}"
       xcode_command
     end
 

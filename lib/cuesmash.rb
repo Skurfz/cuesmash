@@ -13,6 +13,8 @@ require 'cuesmash/command'
 require 'cuesmash/compiler'
 require 'cuesmash/plist'
 require 'cuesmash/cucumber'
+require 'cuesmash/appium_text'
+require 'cuesmash/iosapp'
 
 module Cuesmash
   PORT = 4567

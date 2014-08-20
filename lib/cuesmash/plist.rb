@@ -14,14 +14,21 @@ module Cuesmash
 
     # Public: the Scheme the plist is related to
     attr_accessor :scheme
+    attr_accessor :tmp_dir
+    attr_accessor :plist_name
 
     #
     # Create a new plist instance
     # @param  scheme [String] The scheme related to the plist
+    # @param  app_path [String] The dir where the app is going to be placed.
+    # @param  plist_name [String] Default: server_config. The name of the file with the server configurations.
     #
     # @return [Plist] A plist instance
-    def initialize(scheme)
+    def initialize(scheme, app_path, plist_name="server_config")
       @scheme = scheme
+      @tmp_dir = tmp_dir
+      @plist_name = plist_name
+      @app_path = app_path
     end
 
     #
@@ -91,25 +98,11 @@ module Cuesmash
     end
 
     #
-    # The path to the application
-    #
-    # @return [String] The path to the application
-    def app_path
-      files = []
-
-      Find.find("#{File.expand_path('~')}/Library/Developer/Xcode/DerivedData/") do |path|
-        files << path if path =~ /#{@scheme}.app$/
-      end
-
-      files.sort_by { |filename| File.mtime(filename)}.last # get the latest
-    end
-
-    #
     # The path to the server config plist
     #
     # @return The full path to the server config plist
     def server_plist_path
-      app_path + "/server_config.plist"
+      @app_path + "/#{@plist_name}.plist"
     end
 
   end

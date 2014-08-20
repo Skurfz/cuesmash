@@ -42,7 +42,7 @@ module Cuesmash
 
     def started
       puts "\nUpdating appium.txt"
-      puts "=============="
+      puts "==================="
     end
 
     def update
@@ -61,10 +61,10 @@ module Cuesmash
     # app = "/Users/jarod/Library/Developer/Xcode/DerivedData/laterooms-fnlioqzgtpowdmezkwdzsyicgjiz/Build/Products/Debug-iphonesimulator/laterooms.app"
     def file_text
       text = "[caps]\n"
-      text << "platformName = '#{platform_name}'\n"
-      text << "deviceName = '#{device_name}'\n"
-      text << "platformVersion = '#{platform_name}'\n"
-      text << "app = '#{app}'\n"
+      text << "platformName = \"#{platform_name}\"\n"
+      text << "deviceName = \"#{device_name}\"\n"
+      text << "platformVersion = \"#{platform_version}\"\n"
+      text << "app = \"#{app}\"\n"
       text
     end
   end

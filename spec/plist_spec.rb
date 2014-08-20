@@ -5,7 +5,7 @@ describe Cuesmash::Plist do
   describe "when executed" do
 
     before(:each) do
-      @plist = Cuesmash::Plist.new("scheme")
+      @plist = Cuesmash::Plist.new("scheme", "/tmp")
       @plist.stub(:update)
       @plist.stub(:clear)
       @plist.stub(:completed)
@@ -26,7 +26,7 @@ describe Cuesmash::Plist do
   describe "when clearing" do
 
     before(:each) do
-      @plist = Cuesmash::Plist.new("scheme")
+      @plist = Cuesmash::Plist.new("scheme", "/tmp")
       @plist.stub(:update)
       @plist.stub(:completed)
       @plist.stub(:started)
@@ -50,7 +50,7 @@ describe Cuesmash::Plist do
       CFPropertyList.stub(:native_types){@cfplist}
       CFPropertyList.stub(:guess)
 
-      @plist = Cuesmash::Plist.new("scheme")
+      @plist = Cuesmash::Plist.new("scheme", "app_path")
       @plist.stub(:clear)
       @plist.stub(:completed)
       @plist.stub(:started)

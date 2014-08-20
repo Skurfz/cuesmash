@@ -22,6 +22,7 @@ module Cuesmash
       #
       # @return [type] [description]
       def execute(*args)
+        puts "args == #{args}"
         return overview unless args.length > 1
 
         options = parse(args)
@@ -31,12 +32,15 @@ module Cuesmash
         format  = options[:format]
         output  = options[:output]
 
-        # get the tmp_dir for build
-        tmp_dir = Dir.mktmpdir(scheme)
+        # Create new IosApp object
+        app = IosApp.new(file_name: scheme)
+
         # Compile the project
-        compile(scheme, tmp_dir) do
+        compile(scheme, app.tmp_dir) do
           # Update the plist
-          update_plist(scheme)
+          update_plist(scheme, app.app_path)
+          # Update the appium.txt file
+          create_appium_txt(app: app.app_path)
           # Run the tests
           run_tests(ios, tags, format, output)
         end
@@ -97,8 +101,8 @@ module Cuesmash
       # connects to sinatra
       # @param  scheme [String] The scheme related to the application
       #
-      def update_plist(scheme)
-        plist = Cuesmash::Plist.new(scheme)
+      def update_plist(scheme, app_path)
+        plist = Cuesmash::Plist.new(scheme, app_path)
         plist.execute
       end
 
@@ -119,8 +123,9 @@ module Cuesmash
       #
       # Update appium.txt file with the directory of the build product
       #
-      def create_appium_txt
+      def create_appium_txt(platform_name: "iOS", device_name: "iPhone Simulator", platform_version: "7.1", app:)
         appium = AppiumText.new(platform_name, device_name, platform_version, app)
+        appium.execute
       end
 
       #
@@ -133,6 +138,7 @@ module Cuesmash
         s << "\n  --ios -i the iOS version to build with"
         s << "\n  --output -o The output directory for the test report"
         s << "\n  --format -f The format of the test report"
+        s << "\n  --server -s "
 
         puts s
       end
