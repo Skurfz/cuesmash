@@ -9,6 +9,7 @@ module Cuesmash
   # @author [alexfish]
   #
   class Compiler
+    include Logging
 
     # Public: the Scheme the compiler is compiling
     attr_accessor :scheme
@@ -82,7 +83,6 @@ module Cuesmash
                        CODE_SIGNING_REQUIRED=NO \
                        -derivedDataPath #{@tmp_dir}"
 
-      puts "xcode_command == #{xcode_command}"
       xcode_command
     end
 

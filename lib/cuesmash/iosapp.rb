@@ -9,6 +9,7 @@ module Cuesmash
   # @author [jarod]
   #
   class IosApp
+    include Logging
 
     # Public: the path to the dir containing the built app i.e. /tmp/MyAppQWERQW/Build/Products/Debug-iphonesimulator/
     attr_reader :app_dir

@@ -9,6 +9,7 @@ module Cuesmash
   # @author [jarod]
   #
   class AppiumServer
+    include Logging
 
     # Public: the output directory for the tests
     attr_accessor :output

@@ -10,6 +10,7 @@ module Cuesmash
   # @author [alexfish]
   #
   class Command
+    include Logging
 
     class << self
 
@@ -30,9 +31,15 @@ module Cuesmash
         tags    = options[:tags]
         format  = options[:format]
         output  = options[:output]
+        debug   = options[:debug]
+
+        if debug
+          @logger.level = Logger::DEBUG
+        end
 
         # Create new IosApp object
         app = IosApp.new(file_name: scheme)
+        app_server = AppiumServer.new
 
         # Compile the project
         compile(scheme, app.tmp_dir) do
@@ -40,12 +47,18 @@ module Cuesmash
           update_plist(scheme, app.app_path)
           # Update the appium.txt file
           create_appium_txt(app: app.app_path)
+          # start the appium server
+          app_server.start_server
           # Run the tests
           run_tests(ios, tags, format, output)
+          # Stop the Appium server
+          app_server.stop_server
         end
 
         # clean up temp dir
-        FileUitls.remove_entry tmp_dir
+        logger.info "\nCleaning up tmp dir"
+        logger.info "===================\n"
+        FileUtils.remove_entry app.tmp_dir
       end
 
       #
@@ -59,9 +72,7 @@ module Cuesmash
 
         OptionParser.new do |opt|
          opt.on("-s","--scheme SCHEME","the scheme to build") do |tags|
-            puts "tags = #{tags}"
             options[:scheme] = tags
-
           end
 
           opt.on("-t","--tags TAGS","the tags to pass to Cucumber") do |tag_set|
@@ -78,6 +89,10 @@ module Cuesmash
 
           opt.on("-o", "--output OUTPUT", "the output path for the test results") do |output|
             options[:output] = output
+          end
+
+          opt.on("-d", "--debug", "Run with debug logging on. Verbose") do |debug|
+            options[:debug] = debug
           end
         end.parse!
 

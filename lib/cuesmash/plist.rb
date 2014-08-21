@@ -11,6 +11,7 @@ module Cuesmash
   # @author [alexfish]
   #
   class Plist
+    include Logging
 
     # Public: the Scheme the plist is related to
     attr_accessor :scheme

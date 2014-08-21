@@ -9,6 +9,8 @@ module Cuesmash
   # @author [jarod]
   #
   class AppiumText
+    include Logging
+    
     attr_accessor :platform_version
     attr_accessor :app
     attr_accessor :platform_name

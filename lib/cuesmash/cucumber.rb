@@ -10,6 +10,7 @@ module Cuesmash
   # @author [alexfish]
   #
   class Cucumber
+    include Logging
 
     # Public: the output directory for the tests
     attr_accessor :output
@@ -51,6 +52,7 @@ module Cuesmash
 
       if status != 0
         puts "\n Cucumber failed"
+        puts "===============\n"
         exit status
       else
         completed
