@@ -10,7 +10,6 @@ module Cuesmash
   # @author [alexfish]
   #
   class Command
-    include Logging
 
     class << self
 
@@ -34,9 +33,12 @@ module Cuesmash
         debug   = options[:debug]
 
         if debug
-          @logger.level = Logger::DEBUG
+          Logger.level = ::Logger::DEBUG
         end
 
+        Logger.info "Starting!!"
+        Logger.debug "With Debugging!!"
+        
         # Create new IosApp object
         app = IosApp.new(file_name: scheme)
         app_server = AppiumServer.new
@@ -56,8 +58,8 @@ module Cuesmash
         end
 
         # clean up temp dir
-        logger.info "\nCleaning up tmp dir"
-        logger.info "===================\n"
+        Logger.info "Cleaning up tmp dir"
+        Logger.info "==================="
         FileUtils.remove_entry app.tmp_dir
       end
 

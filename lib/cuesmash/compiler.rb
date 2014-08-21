@@ -9,7 +9,7 @@ module Cuesmash
   # @author [alexfish]
   #
   class Compiler
-    include Logging
+    # include Logging
 
     # Public: the Scheme the compiler is compiling
     attr_accessor :scheme
@@ -45,7 +45,7 @@ module Cuesmash
       end
 
       if status != 0
-        puts "\nCompilation failed: \n\n #{output}"
+        Logger.fatal "Compilation failed: \n\n #{output}"
         exit status
       else
         completed
@@ -59,15 +59,14 @@ module Cuesmash
     # Output a nice message for starting
     #
     def started
-      puts "\nCompiling"
-      puts "=========\n"
+      Logger.info "Compiling"
     end
 
     #
     # Output a nice message for completing
     #
     def completed
-      puts "\nCompiled 👌"
+      Logger.info "\nCompiled 👌"
     end
 
     #
@@ -82,7 +81,7 @@ module Cuesmash
                        CODE_SIGN_IDENTITY="" \
                        CODE_SIGNING_REQUIRED=NO \
                        -derivedDataPath #{@tmp_dir}"
-
+      Logger.debug "xcode_command == #{xcode_command}"
       xcode_command
     end
 
@@ -92,8 +91,9 @@ module Cuesmash
     #
     # @return [String] The name of the workspace file that was found
     def workspace
-      Dir["*.xcworkspace"].first
+      wp = Dir["*.xcworkspace"].first
+      Logger.debug "workspace == #{wp}"
+      wp
     end
-
   end
 end

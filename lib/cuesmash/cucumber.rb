@@ -10,7 +10,6 @@ module Cuesmash
   # @author [alexfish]
   #
   class Cucumber
-    include Logging
 
     # Public: the output directory for the tests
     attr_accessor :output
@@ -41,7 +40,7 @@ module Cuesmash
         [out, err].each do |stream|
           Thread.new do
             until (line = stream.gets).nil? do
-              puts line
+              Logger.info line
             end
           end
         end
@@ -51,8 +50,7 @@ module Cuesmash
       end
 
       if status != 0
-        puts "\n Cucumber failed"
-        puts "===============\n"
+        Logger.info "\n Cucumber failed"
         exit status
       else
         completed
@@ -65,15 +63,14 @@ module Cuesmash
     # Output a nice message for starting
     #
     def started
-      puts "\nRunning Cucumber"
-      puts "================\n"
+      Logger.info "Running Cucumber"
     end
 
     #
     # Output a nice message for completing
     #
     def completed
-      puts "\nCucumber Completed 👌"
+      Logger.info "Cucumber Completed 👌"
     end
 
     #
@@ -88,6 +85,8 @@ module Cuesmash
       command += " --out #{self.output}" if self.output
       command += @tags.to_a.empty? ? "" : tag_arguments
       command += " -c"
+
+      Logger.debug "cucumber command == #{command}"
 
       command
     end

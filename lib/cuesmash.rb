@@ -21,4 +21,6 @@ require 'cuesmash/logging'
 
 module Cuesmash
   PORT = 4567
+
+  Logger = Logger.new(STDOUT)
 end

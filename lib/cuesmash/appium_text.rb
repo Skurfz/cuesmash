@@ -9,8 +9,7 @@ module Cuesmash
   # @author [jarod]
   #
   class AppiumText
-    include Logging
-    
+
     attr_accessor :platform_version
     attr_accessor :app
     attr_accessor :platform_name
@@ -43,8 +42,7 @@ module Cuesmash
     private
 
     def started
-      puts "\nUpdating appium.txt"
-      puts "==================="
+      Logger.info "\nUpdating appium.txt"
     end
 
     def update
@@ -53,7 +51,7 @@ module Cuesmash
     end
 
     def completed
-      puts "appium.txt updated 👌"
+      Logger.info "appium.txt updated 👌"
     end
 
     # [caps]
@@ -67,6 +65,7 @@ module Cuesmash
       text << "deviceName = \"#{device_name}\"\n"
       text << "platformVersion = \"#{platform_version}\"\n"
       text << "app = \"#{app}\"\n"
+      Logger.debug "appium.text \n #{text}"
       text
     end
   end

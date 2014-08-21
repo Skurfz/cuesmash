@@ -9,7 +9,6 @@ module Cuesmash
   # @author [jarod]
   #
   class AppiumServer
-    include Logging
 
     # Public: the output directory for the tests
     attr_accessor :output
@@ -29,13 +28,13 @@ module Cuesmash
     def start_server
       started
       @stdin, @stdout, @stderr, @wait_thr = Open3.popen3("appium --log-level info")
-      puts "Appium running with pid: #{@wait_thr.pid}"
+      Logger.info "Appium running with pid: #{@wait_thr.pid}"
 
       # put this inside a debug flag
       [@stdout, @stderr].each do |stream|
         Thread.new do
           until (line = stream.gets).nil? do
-            puts line
+            Logger.debug line
           end
         end
       end
@@ -59,15 +58,14 @@ module Cuesmash
     # Output a nice message for starting
     #
     def started
-      puts "\nStarting Appium Server"
-      puts "======================\n"
+      Logger.info "Starting Appium Server"
     end
 
     #
     # Output a nice message for completing
     #
     def completed
-      puts "\nStopping Appium server 👌"
+      Logger.info "\nStopping Appium server 👌"
     end
 
     #

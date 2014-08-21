@@ -11,7 +11,7 @@ module Cuesmash
   # @author [alexfish]
   #
   class Plist
-    include Logging
+    # include Logging
 
     # Public: the Scheme the plist is related to
     attr_accessor :scheme
@@ -49,15 +49,14 @@ module Cuesmash
     # Output a nice message for starting
     #
     def started
-      puts "\nUpdating plist"
-      puts "=============="
+      Logger.info "Updating plist"
     end
 
     #
     # Output a nice message for completing
     #
     def completed
-      puts "Plist updated 👌"
+      Logger.info "Plist updated 👌"
     end
 
     #
