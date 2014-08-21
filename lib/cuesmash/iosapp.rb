@@ -29,10 +29,10 @@ module Cuesmash
     #
     # @return [App] A app instance
     def initialize(file_name:)
-      @app_name = file_name << ".app"
+      @app_name = "#{file_name}" << ".app"
       @tmp_dir = Dir.mktmpdir(file_name)
-      @app_dir = @tmp_dir << "/Build/Products/Debug-iphonesimulator/"
-      @app_path = @app_dir << @app_name
+      @app_dir = "#{@tmp_dir}" << "/Build/Products/Debug-iphonesimulator/"
+      @app_path = "#{@app_dir}" << "#{@app_name}"
     end
   end
 end
