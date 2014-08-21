@@ -27,20 +27,29 @@ module Cuesmash
     #
     def start_server
       started
-      @stdin, @stdout, @stderr, @wait_thr = Open3.popen3("appium")
+      @stdin, @stdout, @stderr, @wait_thr = Open3.popen3("appium --log-level info")
       puts "Appium running with pid: #{@wait_thr.pid}"
+
+      # put this inside a debug flag
+      [@stdout, @stderr].each do |stream|
+        Thread.new do
+          until (line = stream.gets).nil? do
+            puts line
+          end
+        end
+      end
     end
 
     #
     # Stop the appium server
     #
     def stop_server
+      Process.kill('INT', @wait_thr.pid)
       @stdin.close
       @stdout.close
       @stderr.close
 
       completed
-      puts "Appium server exited with value: #{@wait_thr.value}"
     end
 
     private
