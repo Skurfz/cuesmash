@@ -22,7 +22,6 @@ module Cuesmash
       #
       # @return [type] [description]
       def execute(*args)
-        puts "args == #{args}"
         return overview unless args.length > 1
 
         options = parse(args)
@@ -60,7 +59,9 @@ module Cuesmash
 
         OptionParser.new do |opt|
          opt.on("-s","--scheme SCHEME","the scheme to build") do |tags|
+            puts "tags = #{tags}"
             options[:scheme] = tags
+
           end
 
           opt.on("-t","--tags TAGS","the tags to pass to Cucumber") do |tag_set|
