@@ -125,7 +125,7 @@ module Cuesmash
       # Update appium.txt file with the directory of the build product
       #
       def create_appium_txt(platform_name: "iOS", device_name: "iPhone Simulator", platform_version: "7.1", app:)
-        appium = AppiumText.new(platform_name, device_name, platform_version, app)
+        appium = AppiumText.new(platform_name: platform_name, device_name: device_name, platform_version: platform_version, app: app)
         appium.execute
       end
 
