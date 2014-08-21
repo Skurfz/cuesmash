@@ -24,7 +24,7 @@ module Cuesmash
     # @param  app [String] path to built .app file
     #
     # @return [AppiumText] A appiumtext instance
-    def initialize(platform_name, device_name, platform_version, app)
+    def initialize(platform_name:, device_name:, platform_version:, app:)
       @platform_name = platform_name
       @device_name = device_name
       @platform_version = platform_version
