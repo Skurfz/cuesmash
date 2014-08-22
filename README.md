@@ -8,13 +8,19 @@ Cuesmash provides an interface to run a suite of appium-cucumber tests against a
 
 ## Installation
 
-Add this line to your application's Gemfile:
+From the git repo:
+
+    rake install
+
+Once we get to a first release of them gem there will be a gem install
+
+<!-- Add this line to your application's Gemfile:
 
     gem 'cuesmash'
 
 And then execute:
 
-    $ bundle install
+    $ bundle install -->
 
 ## Usage
 
