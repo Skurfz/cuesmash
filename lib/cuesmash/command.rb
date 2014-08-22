@@ -34,11 +34,14 @@ module Cuesmash
 
         if debug
           Logger.level = ::Logger::DEBUG
+          Logger.formatter = proc do |serverity, time, progname, msg|
+            "\n#{time}\t#{serverity}\t#{msg.rstrip}"
+          end
         end
 
         Logger.info "Starting!!"
         Logger.debug "With Debugging!!"
-        
+
         # Create new IosApp object
         app = IosApp.new(file_name: scheme)
         app_server = AppiumServer.new
@@ -59,7 +62,6 @@ module Cuesmash
 
         # clean up temp dir
         Logger.info "Cleaning up tmp dir"
-        Logger.info "==================="
         FileUtils.remove_entry app.tmp_dir
       end
 

@@ -32,6 +32,7 @@ module Cuesmash
       output = ""
 
       Open3.popen3 command do |stdin, out, err, wait_thr|
+        print "\n"
         [out, err].each do |stream|
           Thread.new do
             until (line = stream.gets).nil? do
@@ -45,7 +46,7 @@ module Cuesmash
       end
 
       if status != 0
-        Logger.fatal "Compilation failed: \n\n #{output}"
+        Logger.fatal "Compilation failed: #{output}"
         exit status
       else
         completed
@@ -66,7 +67,7 @@ module Cuesmash
     # Output a nice message for completing
     #
     def completed
-      Logger.info "\nCompiled 👌"
+      Logger.info "Compiled 👌"
     end
 
     #

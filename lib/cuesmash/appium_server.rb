@@ -27,14 +27,18 @@ module Cuesmash
     #
     def start_server
       started
-      @stdin, @stdout, @stderr, @wait_thr = Open3.popen3("appium --log-level info")
+
+      command = "appium --log-level debug"
+
+      @stdin, @stdout, @stderr, @wait_thr = Open3.popen3(command)
       Logger.info "Appium running with pid: #{@wait_thr.pid}"
 
-      # put this inside a debug flag
-      [@stdout, @stderr].each do |stream|
-        Thread.new do
-          until (line = stream.gets).nil? do
-            Logger.debug line
+      if Logger.debug?
+        [@stdout, @stderr].each do |stream|
+          Thread.new do
+            until (line = stream.gets).nil? do
+              Logger.debug line
+            end
           end
         end
       end
@@ -65,17 +69,7 @@ module Cuesmash
     # Output a nice message for completing
     #
     def completed
-      Logger.info "\nStopping Appium server 👌"
-    end
-
-    #
-    # Figure out what the cucumber command is and
-    # return it
-    #
-    # @return [String] The cucumber command string
-    def command
-      command = "appium"
-      command
+      Logger.info "Stopping Appium server 👌"
     end
   end
 end

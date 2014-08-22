@@ -17,10 +17,13 @@ require 'cuesmash/cucumber'
 require 'cuesmash/appium_text'
 require 'cuesmash/iosapp'
 require 'cuesmash/appium_server'
-require 'cuesmash/logging'
 
 module Cuesmash
   PORT = 4567
 
   Logger = Logger.new(STDOUT)
+  Logger.level = ::Logger::INFO
+  Logger.formatter = proc do |serverity, time, progname, msg|
+    "\n#{msg.rstrip}"
+  end
 end

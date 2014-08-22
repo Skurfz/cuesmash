@@ -50,7 +50,7 @@ module Cuesmash
       end
 
       if status != 0
-        Logger.info "\n Cucumber failed"
+        Logger.info "Cucumber failed"
         exit status
       else
         completed

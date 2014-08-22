@@ -42,7 +42,7 @@ module Cuesmash
     private
 
     def started
-      Logger.info "\nUpdating appium.txt"
+      Logger.info "Updating appium.txt"
     end
 
     def update
@@ -65,7 +65,7 @@ module Cuesmash
       text << "deviceName = \"#{device_name}\"\n"
       text << "platformVersion = \"#{platform_version}\"\n"
       text << "app = \"#{app}\"\n"
-      Logger.debug "appium.text \n #{text}"
+      Logger.debug "appium.text == #{text}"
       text
     end
   end
