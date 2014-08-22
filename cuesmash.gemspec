@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Alex Fish", "Jarod McBride"]
   spec.email         = ["fish@ustwo.co.uk", "jarod@ustwo.com"]
   spec.description   = "A gift for Juan"
-  spec.summary       = "Compile an app, point the app at sinatra, run cucumber"
+  spec.summary       = "Compile an app, point the app at sinatra, run cucumber with appium"
   spec.homepage      = ""
   spec.license       = "MIT"
 
