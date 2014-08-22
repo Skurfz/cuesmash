@@ -1,10 +1,10 @@
 cuesmash
-=========
+========
 
-[![Gem Version](https://badge.fury.io/rb/cuesmash.png)](http://badge.fury.io/rb/cuesmash)
-[![Build Status](https://travis-ci.org/ustwo/cuesmash.png?branch=master)](https://travis-ci.org/ustwo/cuesmash)
+<!-- [![Gem Version](https://badge.fury.io/rb/cuesmash.png)](http://badge.fury.io/rb/cuesmash)
+[![Build Status](https://travis-ci.org/ustwo/cuesmash.png?branch=master)](https://travis-ci.org/ustwo/cuesmash) -->
 
-Cuesmash provides an interface to run a suite of calabash-ios tests against an iOS application using a mocked backend.
+Cuesmash provides an interface to run a suite of appium-cucumber tests against an iOS application using a mocked backend. This is a fork of [calasmash](https://github.com/ustwo/cuesmash) that supports appium instead of calabash.
 
 ## Installation
 
@@ -29,8 +29,9 @@ Simply run the command below with your preferred arguments.
     --ios -i the iOS version to build with
     --output -o The output directory for the test report
     --format -f The format of the test report
+    --debug -d output debug information
 
-## Configuration 
+## Configuration
 
 Your cucumber tests will need to start a Sinatra server before running with the launch `Before` step.
 
@@ -44,7 +45,7 @@ You can then use a method along these lines to get the url in the iOS applicatio
 
 [Sample method](https://gist.github.com/alexfish/7505005)
 
-## Contributing 
+## Contributing
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
