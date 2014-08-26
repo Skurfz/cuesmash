@@ -39,9 +39,6 @@ module Cuesmash
           end
         end
 
-        Logger.info "Starting!!"
-        Logger.debug "With Debugging!!"
-
         # Create new IosApp object
         app = IosApp.new(file_name: scheme)
         app_server = AppiumServer.new
