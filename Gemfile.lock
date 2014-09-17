@@ -3,6 +3,7 @@ PATH
   specs:
     cuesmash (0.0.1)
       CFPropertyList
+      thor
 
 GEM
   remote: https://rubygems.org/
