@@ -24,6 +24,8 @@ module Cuesmash
       def execute(*args)
         return overview unless args.length > 1
 
+        Logger.debug "Cuesmash::Command.execute(args) args == #{args}"
+
         options = parse(args)
         scheme  = options[:scheme]
         ios     = options[:ios]

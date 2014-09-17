@@ -11,7 +11,6 @@ module Cuesmash
     desc 'init', 'set up the project'
     def init
       Cuesmash::Setup.setup
-      # Do stuff to set up the directory
     end
 
     desc 'test OPTIONS', "Usage: cuesmash [OPTIONS]"
