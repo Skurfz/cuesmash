@@ -24,11 +24,13 @@ And then execute:
 
 ## Usage
 
-Simply run the command below with your preferred arguments.
+###Commands
 
-    cuesmash
+    cuesmash help [COMMAND]  # Describe available commands or one specific command
+    cuesmash init            # set up the project
+    cuesmash test OPTIONS    # Usage: cuesmash test [OPTIONS]
 
-### Options
+### Test Options
 
     --tags -t the tags to pass to Cucumber, for multiple tags pass one -t option per tag
     --scheme -s the Xcode scheme to build
@@ -39,17 +41,11 @@ Simply run the command below with your preferred arguments.
 
 ## Configuration
 
-Your cucumber tests will need to start a Sinatra server before running with the launch `Before` step.
+Cover what the appium.txt file does.
+[http://appium.io/slate/en/tutorial/ios.html?ruby#starting-the-console](http://appium.io/slate/en/tutorial/ios.html?ruby#starting-the-console)
 
-The iOS application should contain a `server_config.plist` file in the following format:
-
-[Sample plist](https://gist.github.com/alexfish/7505037)
-
-cuesmash will update the port and url values before launching the application, your iOS application will need to use the plist values when running it's calabash-ios target.
-
-You can then use a method along these lines to get the url in the iOS application when running the calabash target and direct any API requests to the url.
-
-[Sample method](https://gist.github.com/alexfish/7505005)
+Cover how to configure the travis.yml file
+[http://docs.travis-ci.com/user/languages/objective-c/](http://docs.travis-ci.com/user/languages/objective-c/)
 
 ## Contributing
 

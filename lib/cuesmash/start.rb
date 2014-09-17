@@ -14,7 +14,7 @@ module Cuesmash
       Cuesmash::Setup.setup
     end
 
-    desc 'test OPTIONS', "Usage: cuesmash [OPTIONS]"
+    desc 'test OPTIONS', "Usage: cuesmash test [OPTIONS]"
     long_desc <<-LONGDESC
       --tags -t the tags to pass to cucumber, for multiple tags pass one per tag\n
       --scheme -s the Xcode scheme to build\n
