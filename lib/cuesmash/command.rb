@@ -48,7 +48,7 @@ module Cuesmash
         # Compile the project
         compile(scheme, app.tmp_dir) do
           # Update the plist
-          update_plist(scheme, app.app_path)
+          # update_plist(scheme, app.app_path)
           # Update the appium.txt file
           create_appium_txt(app: app.app_path)
           # start the appium server

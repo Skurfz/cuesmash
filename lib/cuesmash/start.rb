@@ -3,6 +3,7 @@
 
 require 'thor'
 require 'cuesmash'
+require 'cuesmash/setup'
 
 module Cuesmash
 

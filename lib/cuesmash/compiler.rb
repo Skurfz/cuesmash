@@ -76,25 +76,26 @@ module Cuesmash
     #
     # @return [String] The full xcode build command with args
     def command
-      xcode_command = "xcodebuild -workspace #{workspace} \
-                       -scheme #{@scheme} \
-                       -sdk iphonesimulator \
-                       CODE_SIGN_IDENTITY="" \
-                       CODE_SIGNING_REQUIRED=NO \
-                       -derivedDataPath #{@tmp_dir}"
+      xcode_command = "xcodebuild #{workspace} -scheme #{@scheme} -sdk iphonesimulator CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -derivedDataPath #{@tmp_dir}"
       Logger.debug "xcode_command == #{xcode_command}"
       xcode_command
     end
 
     #
     # Looks in the current directory for the workspace file and
-    # gets it's name
+    # gets it's name if there is one
     #
-    # @return [String] The name of the workspace file that was found
+    # @return [String] The name of the workspace file that was found along with the -workspace flag
     def workspace
       wp = Dir["*.xcworkspace"].first
-      Logger.debug "workspace == #{wp}"
-      wp
+      if wp
+        flag = "-workspace #{wp}"
+        Logger.debug "workspace == #{wp}"
+        return flag
+      else
+        Logger.debug "no workspace found"
+        return wp
+      end
     end
   end
 end
