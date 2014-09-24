@@ -57,6 +57,5 @@ Cover how to configure the travis.yml file
 
 ## TODO:
 
-1. `cuesmash init` - a command that sets up a new iOS or Andriod repo with cucumber, appium, and needed dependencies.
-2. reporting - at the end of a run provide reports of the results.
-3. passing build options to xcodebuild (sandbox, mocked, live).
+1. reporting - at the end of a run provide reports of the results.
+2. passing build options to xcodebuild (sandbox, mocked, live).
