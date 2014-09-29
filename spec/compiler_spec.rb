@@ -56,11 +56,6 @@ describe Cuesmash::Compiler do
       @compiler = Cuesmash::Compiler.new(nil, "/tmp")
     end
 
-    it "should exit if something goes bad" do
-      @value.stub(:exitstatus){1}
-      lambda { @compiler.compile }.should raise_error SystemExit
-    end
-
     it "should complete if all is well" do
       @value.stub(:exitstatus){0}
       @compiler.compile do |complete|

@@ -19,11 +19,6 @@ describe Cuesmash::Cucumber do
       @cucumber.stub(:command)
     end
 
-    it "should exit if something goes bad" do
-      @value.stub(:exitstatus){1}
-      lambda { @cucumber.test }.should raise_error SystemExit
-    end
-
     it "should complete if all is well" do
       @value.stub(:exitstatus){0}
       @cucumber.should_receive(:completed)

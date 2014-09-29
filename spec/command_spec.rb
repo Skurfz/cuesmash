@@ -8,11 +8,6 @@ describe Cuesmash::Command do
       Cuesmash::Command.stub(:compile)
       Cuesmash::Command.stub(:parse){nil}
     end
-
-    it "should output the overview if missing args" do
-      Cuesmash::Command.should_receive(:overview)
-      Cuesmash::Command.execute
-    end
   end
 
   describe "when starting a compile" do
