@@ -21,18 +21,7 @@ module Cuesmash
       # @param  *args [Array] An Array of arguments to play with
       #
       # @return [type] [description]
-      def execute(*args)
-        return overview unless args.length > 1
-
-        Logger.debug "Cuesmash::Command.execute(args) args == #{args}"
-
-        options = parse(args)
-        scheme  = options[:scheme]
-        ios     = options[:ios]
-        tags    = options[:tags]
-        format  = options[:format]
-        output  = options[:output]
-        debug   = options[:debug]
+      def execute(device:, os:, server:, tags:, scheme:, debug: false, format: nil, output: nil, travis: nil)
 
         if debug
           Logger.level = ::Logger::DEBUG
@@ -42,7 +31,7 @@ module Cuesmash
         end
 
         # Create new IosApp object
-        app = IosApp.new(file_name: scheme)
+        app = IosApp.new(file_name: scheme, travis_build: travis)
         app_server = AppiumServer.new
 
         # Compile the project
@@ -50,57 +39,21 @@ module Cuesmash
           # Update the plist
           # update_plist(scheme, app.app_path)
           # Update the appium.txt file
-          create_appium_txt(app: app.app_path)
+          create_appium_txt(app: app.app_path, device_name: device, platform_version: os)
           # start the appium server
           app_server.start_server
           # Run the tests
-          run_tests(ios, tags, format, output)
+          run_tests(os, tags, format, output)
           # Stop the Appium server
-          app_server.stop_server
+          # app_server.stop_server
+        end # compile
+
+        unless travis
+          # clean up temp dir
+          Logger.info "Cleaning up tmp dir\n"
+          FileUtils.remove_entry app.tmp_dir
         end
-
-        # clean up temp dir
-        Logger.info "Cleaning up tmp dir"
-        FileUtils.remove_entry app.tmp_dir
-      end
-
-      #
-      # parse the arguments and act on them
-      # @param  args [Array] The arguments from execute
-      #
-      # @return [Hash] A hash containing all of our options
-      def parse(args)
-        options = {}
-        options[:tags] = []
-
-        OptionParser.new do |opt|
-         opt.on("-s","--scheme SCHEME","the scheme to build") do |tags|
-            options[:scheme] = tags
-          end
-
-          opt.on("-t","--tags TAGS","the tags to pass to Cucumber") do |tag_set|
-            options[:tags] << tag_set
-          end
-
-          opt.on("-i", "--ios OS", "iOS simulator version of the sdk to run e.g. 6.0 or 7.0") do |tags|
-            options[:ios] = tags
-          end
-
-          opt.on("-f", "--format FORMAT", "the format of the test reports to output") do |format|
-            options[:format] = format
-          end
-
-          opt.on("-o", "--output OUTPUT", "the output path for the test results") do |output|
-            options[:output] = output
-          end
-
-          opt.on("-d", "--debug", "Run with debug logging on. Verbose") do |debug|
-            options[:debug] = debug
-          end
-        end.parse!
-
-        return options
-      end
+      end # execute
 
       #
       # Kick off a compile
@@ -142,26 +95,10 @@ module Cuesmash
       #
       # Update appium.txt file with the directory of the build product
       #
-      def create_appium_txt(platform_name: "iOS", device_name: "iPhone Simulator", platform_version: "7.1", app:)
+      def create_appium_txt(platform_name: "iOS", device_name:, platform_version:, app:)
         appium = AppiumText.new(platform_name: platform_name, device_name: device_name, platform_version: platform_version, app: app)
         appium.execute
       end
-
-      #
-      # Outputs a nice helpful banner overview to STDOUT
-      #
-      def overview
-        s = "Usage: cuesmash [OPTIONS]"
-        s << "\n  --tags -t the tags to pass to cucumber, for multiple tags pass one per tag"
-        s << "\n  --scheme -s the Xcode scheme to build"
-        s << "\n  --ios -i the iOS version to build with"
-        s << "\n  --output -o The output directory for the test report"
-        s << "\n  --format -f The format of the test report"
-        s << "\n  --server -s "
-
-        puts s
-      end
-
     end
   end
 end

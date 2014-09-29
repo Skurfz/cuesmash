@@ -23,6 +23,7 @@ module Cuesmash
         create_travis_yml
         create_scripts_dir
         create_build_sh
+        create_gemfile
       end
 
       # TODO: the git checkouts needs to check to see if the dirs have already been
@@ -74,6 +75,10 @@ module Cuesmash
 
       def create_build_sh
         download_gist(gist_id:"8df9762a103c694f5773", final_file:"scripts/build.sh")
+      end
+
+      def create_gemfile
+        download_gist(gist_id:"ea786f1cf0fdbe0febb3", final_file:"Gemfile")
       end
 
       #

@@ -36,8 +36,8 @@ module Cuesmash
         [out, err].each do |stream|
           Thread.new do
             until (line = stream.gets).nil? do
-              print "."
-              output << line
+              Logger.info line
+              # output << line
             end
           end
         end
@@ -47,7 +47,8 @@ module Cuesmash
 
       if status != 0
         Logger.fatal "Compilation failed: #{output}"
-        exit status
+        # exit status
+        status
       else
         completed
         complete.call(true) if complete
@@ -76,7 +77,9 @@ module Cuesmash
     #
     # @return [String] The full xcode build command with args
     def command
-      xcode_command = "xcodebuild #{workspace} -scheme #{@scheme} -sdk iphonesimulator CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -derivedDataPath #{@tmp_dir}"
+      # xcode_command = "xcodebuild #{workspace} -scheme #{@scheme} -sdk iphonesimulator CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -derivedDataPath #{@tmp_dir}"
+      xcode_command = "set -o pipefail && xcodebuild #{workspace} -scheme #{@scheme} -derivedDataPath #{@tmp_dir} -configuration Release OBJROOT=#{@tmp_dir} SYMROOT=#{@tmp_dir} -sdk iphonesimulator build | bundle exec xcpretty -c"
+
       Logger.debug "xcode_command == #{xcode_command}"
       xcode_command
     end

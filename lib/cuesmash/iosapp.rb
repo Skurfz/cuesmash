@@ -28,10 +28,18 @@ module Cuesmash
     # @param  file_name [String] The usually is the scheme of the xcode project
     #
     # @return [App] A app instance
-    def initialize(file_name:)
+    def initialize(file_name:, travis_build: false)
       @app_name = "#{file_name}" << ".app"
       @tmp_dir = Dir.mktmpdir(file_name)
-      @app_dir = "#{@tmp_dir}" << "/Build/Products/Debug-iphonesimulator/"
+
+      # if we are running this on travis then we want to build inside the project
+      # dir (it's a VM so it gets cleaned up each run). Otherwise let's create
+      # our own tmp dir for each build.
+      if travis_build
+        @app_dir = "./build/Release-iphonesimulator/"
+      else
+        @app_dir = "#{@tmp_dir}" << "/Release-iphonesimulator/"
+      end
       @app_path = "#{@app_dir}" << "#{@app_name}"
     end
   end
