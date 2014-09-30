@@ -1,7 +1,7 @@
 cuesmash
 ========
 
-[![Gem Version](https://badge.fury.io/rb/cuesmash@2x.png)](http://badge.fury.io/rb/cuesmash)
+[![Gem Version](https://badge.fury.io/rb/cuesmash.svg)](http://badge.fury.io/rb/cuesmash)
 [![Build Status](https://magnum.travis-ci.com/ustwo/cuesmash.svg?token=jygZyQ1odWsnJPYYao3U)](https://magnum.travis-ci.com/ustwo/cuesmash)
 
 Cuesmash provides an interface to run a suite of appium-cucumber tests against an iOS application using a mocked backend. This is a fork of [calasmash](https://github.com/ustwo/cuesmash) that supports appium instead of calabash.
