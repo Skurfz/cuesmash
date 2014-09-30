@@ -10,24 +10,24 @@ describe Cuesmash::Command do
     end
   end
 
-  describe "when starting a compile" do
-
-    before(:each) do
-      @mock = double(Cuesmash::Compiler)
-      @mock.stub(:compile)
-      Cuesmash::Compiler.stub(:new){@mock}
-    end
-
-    it "should set the compilers scheme and tmp dir" do
-      Cuesmash::Compiler.should_receive(:new).with("scheme", "/tmp")
-      Cuesmash::Command.compile("scheme", "/tmp")
-    end
-
-    it "should start compiling" do
-      @mock.should_receive(:compile)
-      Cuesmash::Command.compile("scheme", "/tmp")
-    end
-  end
+  # describe "when starting a compile" do
+  #
+  #   before(:each) do
+  #     @mock = double(Cuesmash::Compiler)
+  #     @mock.stub(:compile)
+  #     Cuesmash::Compiler.stub(:new){@mock}
+  #   end
+  #
+  #   it "should set the compilers scheme and tmp dir" do
+  #     Cuesmash::Compiler.should_receive(:new).with("scheme", "/tmp")
+  #     Cuesmash::Command.compile("scheme", "/tmp")
+  #   end
+  #
+  #   it "should start compiling" do
+  #     @mock.should_receive(:compile)
+  #     Cuesmash::Command.compile("scheme", "/tmp")
+  #   end
+  # end
 
   describe "when updating the plist" do
 
