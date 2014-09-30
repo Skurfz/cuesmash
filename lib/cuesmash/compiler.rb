@@ -80,7 +80,7 @@ module Cuesmash
       # xcode_command = "xcodebuild #{workspace} -scheme #{@scheme} -sdk iphonesimulator CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -derivedDataPath #{@tmp_dir}"
       xcode_command = "set -o pipefail && xcodebuild #{workspace} -scheme #{@scheme} -derivedDataPath #{@tmp_dir} -configuration Release OBJROOT=#{@tmp_dir} SYMROOT=#{@tmp_dir} -sdk iphonesimulator build | bundle exec xcpretty -c"
 
-      Logger.debug "xcode_command == #{xcode_command}"
+      Logger.info "xcode_command == #{xcode_command}"
       xcode_command
     end
 
