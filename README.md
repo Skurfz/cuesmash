@@ -1,26 +1,32 @@
 cuesmash
 ========
 
-<!-- [![Gem Version](https://badge.fury.io/rb/cuesmash.png)](http://badge.fury.io/rb/cuesmash)
-[![Build Status](https://travis-ci.org/ustwo/cuesmash.png?branch=master)](https://travis-ci.org/ustwo/cuesmash) -->
+[![Gem Version](https://badge.fury.io/rb/cuesmash.svg)](http://badge.fury.io/rb/cuesmash)
+[![Build Status](https://magnum.travis-ci.com/ustwo/cuesmash.svg?token=jygZyQ1odWsnJPYYao3U)](https://magnum.travis-ci.com/ustwo/cuesmash)
 
 Cuesmash provides an interface to run a suite of appium-cucumber tests against an iOS application using a mocked backend. This is a fork of [calasmash](https://github.com/ustwo/cuesmash) that supports appium instead of calabash.
 
 ## Installation
-
+<!--
 From the git repo:
 
     rake install
 
-Once we get to a first release of them gem there will be a gem install
+Once we get to a first release of them gem there will be a gem install -->
 
-<!-- Add this line to your application's Gemfile:
+Add this line to your application's Gemfile:
 
     gem 'cuesmash'
 
 And then execute:
 
-    $ bundle install -->
+    $ bundle install
+
+Or as a standalone:
+
+    $ gem install cuesmash
+
+
 
 ## Usage
 
@@ -30,14 +36,19 @@ And then execute:
     cuesmash init            # set up the project
     cuesmash test OPTIONS    # Usage: cuesmash test [OPTIONS]
 
+###init
+
+The init command `cuesmash init` should be run from the root of a new iOS or Android project.
+
 ### Test Options
 
-    --tags -t the tags to pass to Cucumber, for multiple tags pass one -t option per tag
-    --scheme -s the Xcode scheme to build
-    --ios -i the iOS version to build with
-    --output -o The output directory for the test report
-    --format -f The format of the test report
-    --debug -d output debug information
+    --tags -t the tags to pass to cucumber, for multiple tags pass one per tag. See cucumber tags for more info. https://github.com/cucumber/cucumber/wiki/Tags\n
+    --output -o The output directory for the test report --not yet implemented--\n
+    --format -f The format of the test report --not yet implemented--\n
+    --scheme -s the Xcode scheme to build\n
+    --debug -d BOOLEAN turn on debug output\n
+    --travis_ci -c BOOLEAN turn on settings for building on Travis CI
+    --server -r BOOLEAN start up server (requires sinatra app in the project directory)
 
 ## Configuration
 
@@ -51,9 +62,14 @@ Cover how to configure the travis.yml file
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+3. write some code and tests
+4. Commit your changes (`git commit -am 'Add some feature'`)
+5. Push to the branch (`git push origin my-new-feature`)
+6. Create new Pull Request
+
+## Running tests
+
+    $ rspec
 
 ## TODO:
 

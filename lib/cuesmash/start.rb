@@ -25,7 +25,7 @@ module Cuesmash
       --scheme -s the Xcode scheme to build\n
       --debug -d BOOLEAN turn on debug output\n
       --travis_ci -c BOOLEAN turn on settings for building on Travis CI
-      --server -r
+      --server -r BOOLEAN start up server (requires sinatra app in the project directory)
     LONGDESC
     method_option :scheme, type: :string, aliases: "-s", desc: "the Xcode scheme to build"
     method_option :tags, type: :array, aliases: "-t", desc: "the tags to pass to cucumber, for multiple tags pass one per tag"
@@ -58,7 +58,7 @@ module Cuesmash
       end # device each
 
       # clean up the temp dir
-      unless travis
+      unless options[:travis_ci]
         # clean up temp dir
         Logger.info "Cleaning up tmp dir\n"
         FileUtils.remove_entry app.tmp_dir
