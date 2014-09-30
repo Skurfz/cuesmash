@@ -23,13 +23,10 @@ module Cuesmash
     #
     # The compiler's heart, executes the compiling with xcodebuild
     #
-    #  @param &complete Compleition block
-    #
     # Returns nothing because it completes with a complete block
-    def compile(&complete)
+    def compile
       started
       status = nil
-      output = ""
 
       Open3.popen3 command do |stdin, out, err, wait_thr|
         print "\n"
@@ -37,7 +34,6 @@ module Cuesmash
           Thread.new do
             until (line = stream.gets).nil? do
               Logger.info line
-              # output << line
             end
           end
         end
@@ -47,11 +43,10 @@ module Cuesmash
 
       if status != 0
         Logger.fatal "Compilation failed: #{output}"
-        # exit status
+        exit status
         status
       else
         completed
-        complete.call(true) if complete
       end
     end
 

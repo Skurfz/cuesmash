@@ -83,7 +83,8 @@ module Cuesmash
 
       #
       # Run the command line
-      # @param command: [String] The command line statement to run
+      #
+      # @param command [String] The command line statement to run
       #
       def command_runner(command:)
         status = nil
