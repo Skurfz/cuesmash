@@ -2,25 +2,37 @@ require 'spec_helper'
 
 describe Cuesmash::IosApp do
   describe "when creating a new instance" do
-    before(:all) do
-      Dir.stub(:mktmpdir) { "/tmp" }
-      @iosapp = Cuesmash::IosApp.new(file_name: "MyApp")
-    end
+    # before(:all) do
+    #   Dir.stub(:mktmpdir) { "/tmp" }
+    #   @iosapp = Cuesmash::IosApp.new(file_name: "MyApp")
+    # end
 
     it "should have an app_dir instance" do
-      @iosapp.app_dir.should match("/tmp/Build/Products/Debug-iphonesimulator/")
+      stub_dir
+      @iosapp = Cuesmash::IosApp.new(file_name: "MyApp")
+      expect(@iosapp.app_dir).to match("/tmp/Release-iphonesimulator/")
     end
 
     it "should have an app_path instance" do
-      @iosapp.app_path.should match("/tmp/Build/Products/Debug-iphonesimulator/MyApp.app")
+      stub_dir
+      @iosapp = Cuesmash::IosApp.new(file_name: "MyApp")
+      expect(@iosapp.app_path).to match("/tmp/Release-iphonesimulator/MyApp.app")
     end
 
     it "should have a tmp_dir instance" do
-      @iosapp.tmp_dir.should match("/tmp")
+      stub_dir
+      @iosapp = Cuesmash::IosApp.new(file_name: "MyApp")
+      expect(@iosapp.tmp_dir).to match("/tmp")
     end
 
     it "should have an app_name instance" do
-      @iosapp.app_name.should match("MyApp.app")
+
+      @iosapp = Cuesmash::IosApp.new(file_name: "MyApp")
+      expect(@iosapp.app_name).to match("MyApp.app")
+    end
+
+    def stub_dir
+      Dir.stub(:mktmpdir) { "/tmp" }
     end
   end
 end

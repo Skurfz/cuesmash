@@ -100,7 +100,7 @@ module Cuesmash
     #
     # The path to the server config plist
     #
-    # @return The full path to the server config plist
+    # @return [String] The full path to the server config plist
     def server_plist_path
       @app_path + "/#{@plist_name}.plist"
     end

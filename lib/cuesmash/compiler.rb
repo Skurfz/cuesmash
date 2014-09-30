@@ -23,21 +23,17 @@ module Cuesmash
     #
     # The compiler's heart, executes the compiling with xcodebuild
     #
-    #  @param &complete Compleition block
-    #
     # Returns nothing because it completes with a complete block
-    def compile(&complete)
+    def compile
       started
       status = nil
-      output = ""
 
       Open3.popen3 command do |stdin, out, err, wait_thr|
         print "\n"
         [out, err].each do |stream|
           Thread.new do
             until (line = stream.gets).nil? do
-              print "."
-              output << line
+              Logger.info line
             end
           end
         end
@@ -48,9 +44,9 @@ module Cuesmash
       if status != 0
         Logger.fatal "Compilation failed: #{output}"
         exit status
+        status
       else
         completed
-        complete.call(true) if complete
       end
     end
 
@@ -76,25 +72,28 @@ module Cuesmash
     #
     # @return [String] The full xcode build command with args
     def command
-      xcode_command = "xcodebuild -workspace #{workspace} \
-                       -scheme #{@scheme} \
-                       -sdk iphonesimulator \
-                       CODE_SIGN_IDENTITY="" \
-                       CODE_SIGNING_REQUIRED=NO \
-                       -derivedDataPath #{@tmp_dir}"
-      Logger.debug "xcode_command == #{xcode_command}"
+      # xcode_command = "xcodebuild #{workspace} -scheme #{@scheme} -sdk iphonesimulator CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -derivedDataPath #{@tmp_dir}"
+      xcode_command = "set -o pipefail && xcodebuild #{workspace} -scheme #{@scheme} -derivedDataPath #{@tmp_dir} -configuration Release OBJROOT=#{@tmp_dir} SYMROOT=#{@tmp_dir} -sdk iphonesimulator build | bundle exec xcpretty -c"
+
+      Logger.info "xcode_command == #{xcode_command}"
       xcode_command
     end
 
     #
     # Looks in the current directory for the workspace file and
-    # gets it's name
+    # gets it's name if there is one
     #
-    # @return [String] The name of the workspace file that was found
+    # @return [String] The name of the workspace file that was found along with the -workspace flag
     def workspace
       wp = Dir["*.xcworkspace"].first
-      Logger.debug "workspace == #{wp}"
-      wp
+      if wp
+        flag = "-workspace #{wp}"
+        Logger.debug "workspace == #{wp}"
+        return flag
+      else
+        Logger.debug "no workspace found"
+        return wp
+      end
     end
   end
 end

@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # coding: utf-8
 
-require 'cuesmash'
+require 'cuesmash/start'
 
-Cuesmash::Command.execute(*ARGV)
+Cuesmash::Start.start

@@ -9,6 +9,7 @@ require 'socket'
 require 'fileutils'
 require 'tmpdir'
 require 'logger'
+require 'yaml'
 
 require 'cuesmash/command'
 require 'cuesmash/compiler'

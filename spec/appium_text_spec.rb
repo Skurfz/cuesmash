@@ -8,19 +8,19 @@ describe Cuesmash::AppiumText do
     end
 
     it "should have a platform name" do
-      @appiumtext.platform_name.should match("iOS")
+      expect(@appiumtext.platform_name).to match("iOS")
     end
 
     it "should have a device name" do
-      @appiumtext.device_name.should match("iPhone Simulator")
+      expect(@appiumtext.device_name).to match("iPhone Simulator")
     end
 
     it "should have a platform_version" do
-      @appiumtext.platform_version.should match("7.1")
+      expect(@appiumtext.platform_version).to match("7.1")
     end
 
     it "should have an app name" do
-      @appiumtext.app.should match("MyApp")
+      expect(@appiumtext.app).to match("MyApp")
     end
   end
 end
