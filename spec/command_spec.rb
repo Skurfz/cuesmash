@@ -56,13 +56,13 @@ describe Cuesmash::Command do
       end
 
       it "should set the cucumber ios version" do
-        Cuesmash::Cucumber.should_receive(:new).with("ios", anything)
-        Cuesmash::Command.run_tests("ios", "tags")
+        Cuesmash::Cucumber.should_receive(:new).with("ios", anything, anything)
+        Cuesmash::Command.run_tests("ios", "tags", "profile")
       end
 
       it "should set the cucumber tags" do
-        Cuesmash::Cucumber.should_receive(:new).with(anything, "tags")
-        Cuesmash::Command.run_tests("ios", "tags")
+        Cuesmash::Cucumber.should_receive(:new).with(anything, "tags", anything)
+        Cuesmash::Command.run_tests("ios", "tags", "profile")
       end
 
       it "should set the format" do
@@ -70,7 +70,7 @@ describe Cuesmash::Command do
         Cuesmash::Cucumber.stub(:new){@cucumber}
 
         @cucumber.should_receive(:format=)
-        Cuesmash::Command.run_tests(nil, nil, "format")
+        Cuesmash::Command.run_tests(nil, nil, nil, "format")
       end
 
       it "should set the output" do
@@ -78,14 +78,14 @@ describe Cuesmash::Command do
         Cuesmash::Cucumber.stub(:new){@cucumber}
 
         @cucumber.should_receive(:output=)
-        Cuesmash::Command.run_tests(nil, nil, nil, "output")
+        Cuesmash::Command.run_tests(nil, nil, nil, nil, "output")
       end
 
       it "should start the tests" do
         @mock.should_receive(:test)
-        Cuesmash::Command.run_tests("ios", "tags")
+        Cuesmash::Command.run_tests("ios", "tags", "profile")
       end
 
-    end
-  end
-end
+    end # describe "when running the cucumber tests"
+  end # describe "when updating the plist"
+end # describe Cuesmash::Command

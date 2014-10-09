@@ -24,13 +24,15 @@ module Cuesmash
       --format -f The format of the test report --not yet implemented--\n
       --scheme -s the Xcode scheme to build\n
       --debug -d BOOLEAN turn on debug output\n
-      --travis_ci -c BOOLEAN turn on settings for building on Travis CI
-      --server -r BOOLEAN start up server (requires sinatra app in the project directory)
+      --travis_ci -c BOOLEAN turn on settings for building on Travis CI\n
+      --server -r BOOLEAN start up server (requires sinatra app in the project directory)\n
+      --profile -p which cucumber.yml profile to use\n
     LONGDESC
     method_option :scheme, type: :string, aliases: "-s", desc: "the Xcode scheme to build"
     method_option :tags, type: :array, aliases: "-t", desc: "the tags to pass to cucumber, for multiple tags pass one per tag"
     method_option :debug, type: :boolean, default: false, aliases: "-d", desc: "turn on debug output"
     method_option :travis_ci, type: :boolean, default: false, aliases: "-c", desc: "turn on settings for building on Travis CI"
+    method_option :profile, type: :string, aliases: "-p", desc: "which cucumber.yml profile to use"
     # method_option :server, type: :string, aliases: "-r", desc: ""
     def test
 
@@ -53,7 +55,7 @@ module Cuesmash
       config['devices'].each do |device, oses|
         oses.each do |os|
           say "\n============================\ntesting iOS #{os} on #{device}", :green
-          Cuesmash::Command.execute(device: device, os: os, server: options[:server], tags: options[:tags], scheme: options[:scheme], travis: options[:travis_ci], debug: options[:debug], app: app)
+          Cuesmash::Command.execute(device: device, os: os, server: options[:server], tags: options[:tags], scheme: options[:scheme], travis: options[:travis_ci], debug: options[:debug], app: app, profile: options[:profile])
         end
       end # device each
 
