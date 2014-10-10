@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe Cuesmash::IosApp do
   describe "when creating a new instance" do
-    # before(:all) do
-    #   Dir.stub(:mktmpdir) { "/tmp" }
-    #   @iosapp = Cuesmash::IosApp.new(file_name: "MyApp")
-    # end
 
     it "should have an app_dir instance" do
       stub_dir
