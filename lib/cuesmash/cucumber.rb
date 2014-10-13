@@ -20,16 +20,21 @@ module Cuesmash
     # Public: the cucumber profile to use for the tests
     attr_accessor :profile
 
+    # Public: the cucumber quiet flag
+    attr_accessor :quiet
+
     #
     # Create a new instance of Cucumber
     # @param  ios [String] The iOS version cucumber will run
     # @param  tags [Array] The tags cucumber will run with
     # @param profile [String] the cucumber profile to use for the tests
+    # @param quiet [Boolean]
     #
-    def initialize(ios, tags, profile)
+    def initialize(ios, tags, profile, quiet)
       @ios = ios
       @tags = tags
       @profile = profile
+      @quiet = quiet
     end
 
     #
@@ -94,6 +99,7 @@ module Cuesmash
       command_string += " --out #{self.output}" if self.output
       command_string += " --profile #{self.profile}" if self.profile
       command_string += @tags.to_a.empty? ? "" : tag_arguments
+      command_string += " --quiet" if self.quiet
       command_string += " -c"
 
       Logger.debug "cucumber command == #{command_string}"

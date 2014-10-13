@@ -10,3 +10,6 @@ devices:
 
   iPhone 6 Plus:
     [8.0]
+default:
+  os: iPhone 5s
+  version: 8.0
