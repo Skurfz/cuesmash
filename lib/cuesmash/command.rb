@@ -28,9 +28,10 @@ module Cuesmash
       # @param output [String]
       # @param travis [Boolean]
       # @param app [IosApp Object]
+      # @param profile [String]
       #
       # @return [type] [description]
-      def execute(device:, os:, server:, tags:, scheme:, debug: false, format: nil, output: nil, travis: nil, app:)
+      def execute(device:, os:, server:, tags:, scheme:, debug: false, format: nil, output: nil, travis: nil, app:, profile:)
 
         if debug
           Logger.level = ::Logger::DEBUG
@@ -50,7 +51,7 @@ module Cuesmash
         app_server.start_server
 
         # Run the tests
-        run_tests(os, tags, format, output)
+        run_tests(os, tags, profile, format, output)
 
         # Stop the Appium server
         # app_server.stop_server
@@ -74,11 +75,12 @@ module Cuesmash
       #
       # @param ios [String] The iOS version to test with
       # @param tags [Array] The cucumber tags to test with
+      # @param profile [String] cucumber profile to use
       # @param format [String] The output format for the cucumber tests, Optional
       # @param output [String] The path to the output directory to output test reports to, Optional
       #
-      def run_tests(ios, tags, format=nil, output=nil)
-        cucumber = Cuesmash::Cucumber.new(ios, tags)
+      def run_tests(ios, tags, profile, format=nil, output=nil)
+        cucumber = Cuesmash::Cucumber.new(ios, tags, profile)
         cucumber.format = format if format
         cucumber.output = output if output
         cucumber.test

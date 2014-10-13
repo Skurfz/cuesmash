@@ -17,14 +17,19 @@ module Cuesmash
     # Public: the output format for the tests
     attr_accessor :format
 
+    # Public: the cucumber profile to use for the tests
+    attr_accessor :profile
+
     #
     # Create a new instance of Cucumber
     # @param  ios [String] The iOS version cucumber will run
     # @param  tags [Array] The tags cucumber will run with
+    # @param profile [String] the cucumber profile to use for the tests
     #
-    def initialize(ios, tags)
+    def initialize(ios, tags, profile)
       @ios = ios
       @tags = tags
+      @profile = profile
     end
 
     #
@@ -35,7 +40,11 @@ module Cuesmash
 
       status = nil
       output = ""
-      Open3.popen3 command do |stdin, out, err, wait_thr|
+
+      cucumber_command = command
+      Logger.debug "cucumber_command == #{cucumber_command}"
+
+      Open3.popen3 cucumber_command do |stdin, out, err, wait_thr|
 
         [out, err].each do |stream|
           Thread.new do
@@ -80,16 +89,16 @@ module Cuesmash
     #
     # @return [String] The cucumber command string
     def command
-      command = "cucumber"
-      command += simulator_arguments if @ios
-      command += " --format #{self.format}" if self.format
-      command += " --out #{self.output}" if self.output
-      command += @tags.to_a.empty? ? "" : tag_arguments
-      command += " -c"
+      command_string = "cucumber"
+      command_string += " --format #{self.format}" if self.format
+      command_string += " --out #{self.output}" if self.output
+      command_string += " --profile #{self.profile}" if self.profile
+      command_string += @tags.to_a.empty? ? "" : tag_arguments
+      command_string += " -c"
 
-      Logger.debug "cucumber command == #{command}"
+      Logger.debug "cucumber command == #{command_string}"
 
-      command
+      command_string
     end
 
     #
@@ -98,26 +107,13 @@ module Cuesmash
     #
     # @return [String] The --tags commands ready to go
     def tag_arguments
-      command = ""
+      command_tag = ""
       @tags.each do |tag_set|
-        command = "" unless command
-        command += " --tags #{tag_set}"
-      end
-      command
-    end
-
-    #
-    # Generate the simulator version arguments that
-    # are best for certain versions of simulators
-    #
-    # @return [String] The simulator arguments
-    def simulator_arguments
-      if @ios
-          command = " DEVICE_TARGET='iPhone Retina (4-inch) - Simulator - iOS #{@ios}'"
+        command_tag = "" unless command_tag
+        command_tag += " --tags #{tag_set}"
       end
 
-      command
+      command_tag
     end
-
   end
 end
