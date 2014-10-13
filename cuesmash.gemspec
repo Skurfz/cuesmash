@@ -20,15 +20,15 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.1.0'
 
   spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency 'rake', '~> 10.3', '>= 10.3.2'
-  spec.add_development_dependency 'rspec', '~> 3.1', '>= 3.1.0'
-  spec.add_development_dependency 'guard-rspec', '~> 4.3', '>= 4.3.1'
-  spec.add_development_dependency 'pry', '~> 0.10', '>= 0.10.1'
-  spec.add_development_dependency 'byebug', '~> 3.5', '>= 3.5.1'
+  spec.add_development_dependency 'rake', '>= 10.3.2'
+  spec.add_development_dependency 'rspec', '>= 3.1.0'
+  spec.add_development_dependency 'guard-rspec', '>= 4.3.1'
+  spec.add_development_dependency 'pry', '>= 0.10.1'
+  spec.add_development_dependency 'byebug', '>= 3.5.1'
 
-  spec.add_runtime_dependency 'CFPropertyList', '~> 2.2', '>= 2.2.8'
-  spec.add_runtime_dependency 'thor', '~> 0.19', '>= 0.19.1'
-  spec.add_runtime_dependency 'xcpretty', '~> 0.1', '>= 0.1.7'
+  spec.add_runtime_dependency 'CFPropertyList', '>= 2.2.8'
+  spec.add_runtime_dependency 'thor', '>= 0.19.1'
+  spec.add_runtime_dependency 'xcpretty', '>= 0.1.7'
 
   spec.executables << "cuesmash"
 end
