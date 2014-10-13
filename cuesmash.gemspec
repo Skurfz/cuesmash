@@ -4,12 +4,12 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "cuesmash"
-  spec.version       = "0.1.3"
+  spec.version       = "0.1.4"
   spec.authors       = ["Alex Fish", "Jarod McBride"]
   spec.email         = ["fish@ustwo.co.uk", "jarod@ustwo.com"]
   spec.description   = "A gift for Juan"
   spec.summary       = "Compile an app, point the app at sinatra, run cucumber with appium"
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/ustwo/cuesmash"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -20,11 +20,11 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.1.0'
 
   spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rspec"
-  spec.add_development_dependency "guard-rspec"
-  spec.add_development_dependency "pry"
-  spec.add_development_dependency "byebug"
+  spec.add_development_dependency 'rake', '~> 10.3.2'
+  spec.add_development_dependency 'rspec', '~> 3.1.0'
+  spec.add_development_dependency 'guard-rspec', '~> 4.3.1'
+  spec.add_development_dependency 'pry', '~> 0.10.1'
+  spec.add_development_dependency 'byebug', '~> 3.5.1'
 
   spec.add_runtime_dependency "CFPropertyList", '~> 2.2.8'
   spec.add_runtime_dependency "thor", '~> 0.19.1'
