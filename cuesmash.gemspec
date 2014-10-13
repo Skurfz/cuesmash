@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "cuesmash"
-  spec.version       = "0.1.5"
+  spec.version       = "0.1.6"
   spec.authors       = ["Alex Fish", "Jarod McBride"]
   spec.email         = ["fish@ustwo.co.uk", "jarod@ustwo.com"]
   spec.description   = "A gift for Juan"
@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'CFPropertyList', '>= 2.2.8'
   spec.add_runtime_dependency 'thor', '>= 0.19.1'
   spec.add_runtime_dependency 'xcpretty', '>= 0.1.7'
+  spec.add_runtime_dependency 'rest-client', '~> 1.7.2'
 
   spec.executables << "cuesmash"
 end
