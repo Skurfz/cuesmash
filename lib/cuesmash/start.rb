@@ -81,10 +81,10 @@ module Cuesmash
       end
 
       # Create new IosApp object
-      app = IosApp.new(file_name: options[:scheme])
+      app = IosApp.new(file_name: options[:scheme], build_configuration: config['build_configuration'])
 
       # Compile the project
-      compiler = Cuesmash::Compiler.new(options[:scheme], app.tmp_dir)
+      compiler = Cuesmash::Compiler.new(options[:scheme], app.tmp_dir, config['build_configuration'])
       compiler.compile
 
       # create the appium text file

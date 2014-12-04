@@ -39,14 +39,17 @@ module Cuesmash
         command_runner(command: "gem install --no-rdoc --no-ri cucumber")
       end
 
+      # TODO: check if these exist already
       def create_features_dir
         command_runner(command: "mkdir -p features/{support,step_definitions}")
       end
 
+      # TODO: check if this file exists already. If so ask if you want to overwrite it.
       def create_env_rb
         download_gist(gist_id:"9fa5e495758463ee5340", final_file:"features/support/env.rb")
       end
 
+      # TODO: this is failing.
       def install_appium_console
         command_runner(command: "gem install --no-rdoc --no-ri appium_console")
       end
