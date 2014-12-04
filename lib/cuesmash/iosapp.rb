@@ -29,9 +29,10 @@ module Cuesmash
     # @param travis_build [Boolean] if the build is running on travis-ci
     #
     # @return [App] A app instance
-    def initialize(file_name:, travis_build: false)
+    def initialize(file_name:, travis_build: false, build_configuration:)
       @app_name = "#{file_name}" << ".app"
       @tmp_dir = Dir.mktmpdir(file_name)
+      @build_configuration = build_configuration
 
       # if we are running this on travis then we want to build inside the project
       # dir (it's a VM so it gets cleaned up each run). Otherwise let's create
@@ -39,7 +40,7 @@ module Cuesmash
       if travis_build
         @app_dir = "./build/Release-iphonesimulator/"
       else
-        @app_dir = "#{@tmp_dir}" << "/Release-iphonesimulator/"
+        @app_dir = "#{@tmp_dir}" << "/#{@build_configuration}-iphonesimulator/"
       end
       @app_path = "#{@app_dir}" << "#{@app_name}"
     end

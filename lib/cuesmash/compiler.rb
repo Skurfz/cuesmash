@@ -14,10 +14,12 @@ module Cuesmash
     # Public: the Scheme the compiler is compiling
     attr_accessor :scheme
     attr_accessor :tmp_dir
+    attr_accessor :build_configuration
 
-    def initialize(scheme, tmp_dir)
+    def initialize(scheme, tmp_dir, build_configuration)
       @scheme = scheme
       @tmp_dir = tmp_dir
+      @build_configuration = build_configuration
     end
 
     #
@@ -73,7 +75,7 @@ module Cuesmash
     # @return [String] The full xcode build command with args
     def command
       # xcode_command = "xcodebuild #{workspace} -scheme #{@scheme} -sdk iphonesimulator CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -derivedDataPath #{@tmp_dir}"
-      xcode_command = "set -o pipefail && xcodebuild #{workspace} -scheme #{@scheme} -derivedDataPath #{@tmp_dir} -configuration Release OBJROOT=#{@tmp_dir} SYMROOT=#{@tmp_dir} -sdk iphonesimulator build | bundle exec xcpretty -c"
+      xcode_command = "set -o pipefail && xcodebuild #{workspace} -scheme #{@scheme} -derivedDataPath #{@tmp_dir} -configuration #{@build_configuration} OBJROOT=#{@tmp_dir} SYMROOT=#{@tmp_dir} -sdk iphonesimulator build | bundle exec xcpretty -c"
 
       Logger.info "xcode_command == #{xcode_command}"
       xcode_command

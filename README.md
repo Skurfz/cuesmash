@@ -71,6 +71,16 @@ Cover how to configure the travis.yml file
 
     $ rspec
 
+## Building and pushing
+
+    - make sure all tests are passing
+    - update `cuesmash.gemspec` version number
+    - `gem build cuesmash.gemspec `
+    - `gem uninstall -x cuesmash && rake install `
+    - manually test
+    - push to rubygems.org `gem push cuesmash-0.1.7.gem `
+
+
 ## TODO:
 
 1. reporting - at the end of a run provide reports of the results.
