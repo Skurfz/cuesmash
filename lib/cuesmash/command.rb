@@ -30,9 +30,10 @@ module Cuesmash
       # @param app [IosApp Object]
       # @param profile [String]
       # @param quiet [String]
+      # @param timeout [String] newCommandTimeout for appium in seconds
       #
       # @return [type] [description]
-      def execute(device:, os:, server:, tags:, scheme:, debug: false, format: nil, output: nil, travis: nil, app:, profile:, quiet: false)
+      def execute(device:, os:, server:, tags:, scheme:, debug: false, format: nil, output: nil, travis: nil, app:, profile:, quiet: false, timeout:)
 
         if debug
           Logger.level = ::Logger::DEBUG
@@ -45,7 +46,7 @@ module Cuesmash
         # update_plist(scheme, app.app_path)
 
         # Update the appium.txt file
-        create_appium_txt(app: app.app_path, device_name: device, platform_version: os)
+        create_appium_txt(app: app.app_path, device_name: device, platform_version: os, timeout: timeout)
 
         # start the appium server
         app_server = AppiumServer.new
@@ -95,11 +96,12 @@ module Cuesmash
       # @param device_name [String] deviceName = "iPhone Simulator"
       # @param platform_version [String] platformVersion = "7.1"
       # @param app [String] path to built .app file
+      # @param timeout [String] time in seconds to set the newCommandTimeout to.
       #
-      def create_appium_txt(platform_name: "iOS", device_name:, platform_version:, app:)
-        appium = AppiumText.new(platform_name: platform_name, device_name: device_name, platform_version: platform_version, app: app)
+      def create_appium_txt(platform_name: "iOS", device_name:, platform_version:, app:, timeout:)
+        appium = AppiumText.new(platform_name: platform_name, device_name: device_name, platform_version: platform_version, app: app, new_command_timeout: timeout)
         appium.execute
       end
-    end
-  end
-end
+    end # self
+  end # class Command
+end # module Cuesmash

@@ -42,17 +42,27 @@ module Cuesmash
       config = load_config
 
       # Create new IosApp object
-      app = IosApp.new(file_name: options[:scheme], travis_build: options[:travis_ci])
+      app = IosApp.new(file_name: options[:scheme], travis_build: options[:travis_ci], build_configuration: config['build_configuration'])
 
       # Compile the project
-      compiler = Cuesmash::Compiler.new(options[:scheme], app.tmp_dir)
+      compiler = Cuesmash::Compiler.new(options[:scheme], app.tmp_dir, config['build_configuration'])
       compiler.compile
 
       # enumerate over each device / OS combination and run the tests.
       config['devices'].each do |device, oses|
         oses.each do |os|
           say "\n============================\ntesting iOS #{os} on #{device}", :green
-          Cuesmash::Command.execute(device: device, os: os, server: options[:server], tags: options[:tags], scheme: options[:scheme], travis: options[:travis_ci], debug: options[:debug], app: app, profile: options[:profile], quiet: options[:quiet])
+          Cuesmash::Command.execute(device: device, 
+                                    os: os, 
+                                    server: options[:server], 
+                                    tags: options[:tags], 
+                                    scheme: options[:scheme], 
+                                    travis: options[:travis_ci], 
+                                    debug: options[:debug], 
+                                    app: app, 
+                                    profile: options[:profile], 
+                                    quiet: options[:quiet],
+                                    timeout: config['default']['test_timeout'].to_s)
         end
       end # device each
 
@@ -88,7 +98,11 @@ module Cuesmash
       compiler.compile
 
       # create the appium text file
-      appium = AppiumText.new(platform_name: "iOS", device_name: config['default']['os'], platform_version: config['default']['version'].to_s, app: app.app_path)
+      appium = AppiumText.new(platform_name: "iOS", 
+                              device_name: config['default']['os'], 
+                              platform_version: config['default']['version'].to_s, 
+                              app: app.app_path, 
+                              new_command_timeout: config['default']['test_timeout'].to_s)
       appium.execute
 
       say "\nYour build is available at #{app.app_path}", :green

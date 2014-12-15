@@ -27,6 +27,7 @@ module Cuesmash
     #
     # @param  file_name [String] The usually is the scheme of the xcode project
     # @param travis_build [Boolean] if the build is running on travis-ci
+    # @param build_configuration [String] which iOS build configuration to run i.e. Release, Debug
     #
     # @return [App] A app instance
     def initialize(file_name:, travis_build: false, build_configuration:)
