@@ -4,6 +4,8 @@
 require 'thor'
 require 'cuesmash'
 require 'cuesmash/ioscompiler'
+require 'cuesmash/androidapp'
+require 'cuesmash/androidcompiler'
 
 module Cuesmash
 
@@ -82,24 +84,24 @@ module Cuesmash
     def build
 
       # get the cuesmash.yml config
-      config = load_config
+      @config = load_config
 
       # if no default then bail
-      if config['default'] == nil
+      if @config['default'] == nil
         say "add a default device and os version to the .cuesmash.yml", :red
         return
       end
 
-      if config['platform'] == 'iOS'
+      if @config['platform'] == 'iOS'
         setup_ios
-      elsif config['platform'] == 'Android'
+      elsif @config['platform'] == 'Android'
         setup_android
       else
         say "please set platform: 'iOS' or 'Android' in your .cuesmash.yml file", :red
         return
       end
-      
-      say "\nYour build is available at #{app.app_path}", :green
+
+      say "\nYour build is available at #{@app.app_path}", :green
     end # build
 
     no_commands do
@@ -123,19 +125,13 @@ module Cuesmash
       # 
       def setup_ios
         # Create new IosApp object
-        app = IosApp.new(file_name: options[:scheme], build_configuration: config['build_configuration'])
+        @app = Cuesmash::IosApp.new(file_name: options[:scheme], build_configuration: @config['build_configuration'])
 
         # Compile the project
-        compiler = Cuesmash::IosCompiler.new(options[:scheme], app.tmp_dir, config['build_configuration'])
+        compiler = Cuesmash::IosCompiler.new(options[:scheme], app.tmp_dir, @config['build_configuration'])
         compiler.compile
 
-        # create the appium text file
-        appium = AppiumText.new(platform_name: "iOS", 
-                                device_name: config['default']['os'], 
-                                platform_version: config['default']['version'].to_s, 
-                                app: app.app_path, 
-                                new_command_timeout: config['default']['test_timeout'].to_s)
-        appium.execute
+        appium_text
       end
 
       # 
@@ -143,11 +139,24 @@ module Cuesmash
       # 
       def setup_android
         # Create new IosApp object
-        app = AndriodApp.new
+        @app = Cuesmash::AndroidApp.new(project_name: options[:scheme], build_configuration: @config['build_configuration'])
 
         # Compile the project
-        compiler = Cuesmash::AndriodCompiler.new(app.tmp_dir)
+        compiler = Cuesmash::AndroidCompiler.new(tmp_dir: @app.tmp_dir)
         compiler.compile
+
+        appium_text
+      end
+
+      #
+      # Appium text file set up
+      # 
+      def appium_text
+        appium = Cuesmash::AppiumText.new(platform_name: @config['platform'], 
+                                device_name: @config['default']['os'], 
+                                app: @app.app_path, 
+                                new_command_timeout: @config['default']['test_timeout'].to_s)
+        appium.execute
       end
     end # no_commands
   end # Start class

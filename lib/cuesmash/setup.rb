@@ -28,6 +28,7 @@ module Cuesmash
 
       # TODO: the git checkouts needs to check to see if the dirs have already been
       # checked out.
+      # TODO: (JM) turns out that appium needs to have `brew install ant` run before it will work for android
 
       private
 
