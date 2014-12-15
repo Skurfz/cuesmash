@@ -88,7 +88,11 @@ module Cuesmash
       compiler.compile
 
       # create the appium text file
-      appium = AppiumText.new(platform_name: "iOS", device_name: config['default']['os'], platform_version: config['default']['version'].to_s, app: app.app_path)
+      appium = AppiumText.new(platform_name: "iOS", 
+                              device_name: config['default']['os'], 
+                              platform_version: config['default']['version'].to_s, 
+                              app: app.app_path, 
+                              new_command_timeout: config['default']['test_timeout'].to_s)
       appium.execute
 
       say "\nYour build is available at #{app.app_path}", :green
