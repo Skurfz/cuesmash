@@ -42,10 +42,10 @@ module Cuesmash
       config = load_config
 
       # Create new IosApp object
-      app = IosApp.new(file_name: options[:scheme], travis_build: options[:travis_ci])
+      app = IosApp.new(file_name: options[:scheme], travis_build: options[:travis_ci], build_configuration: config['build_configuration'])
 
       # Compile the project
-      compiler = Cuesmash::Compiler.new(options[:scheme], app.tmp_dir)
+      compiler = Cuesmash::Compiler.new(options[:scheme], app.tmp_dir, config['build_configuration'])
       compiler.compile
 
       # enumerate over each device / OS combination and run the tests.
