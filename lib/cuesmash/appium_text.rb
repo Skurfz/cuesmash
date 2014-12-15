@@ -41,7 +41,6 @@ module Cuesmash
       completed
     end
 
-
     private
 
     def started

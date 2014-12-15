@@ -52,7 +52,17 @@ module Cuesmash
       config['devices'].each do |device, oses|
         oses.each do |os|
           say "\n============================\ntesting iOS #{os} on #{device}", :green
-          Cuesmash::Command.execute(device: device, os: os, server: options[:server], tags: options[:tags], scheme: options[:scheme], travis: options[:travis_ci], debug: options[:debug], app: app, profile: options[:profile], quiet: options[:quiet])
+          Cuesmash::Command.execute(device: device, 
+                                    os: os, 
+                                    server: options[:server], 
+                                    tags: options[:tags], 
+                                    scheme: options[:scheme], 
+                                    travis: options[:travis_ci], 
+                                    debug: options[:debug], 
+                                    app: app, 
+                                    profile: options[:profile], 
+                                    quiet: options[:quiet],
+                                    timeout: config['default']['test_timeout'].to_s)
         end
       end # device each
 
