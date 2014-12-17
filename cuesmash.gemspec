@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'guard-rspec', '>= 4.3.1'
   spec.add_development_dependency 'pry', '>= 0.10.1'
   spec.add_development_dependency 'byebug', '>= 3.5.1'
+  spec.add_development_dependency 'simplecov', '~> 0.9.0'
 
   spec.add_runtime_dependency 'CFPropertyList', '>= 2.2.8'
   spec.add_runtime_dependency 'thor', '>= 0.19.1'

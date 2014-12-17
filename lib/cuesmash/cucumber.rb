@@ -30,8 +30,7 @@ module Cuesmash
     # @param profile [String] the cucumber profile to use for the tests
     # @param quiet [Boolean]
     #
-    def initialize(ios, tags, profile, quiet)
-      @ios = ios
+    def initialize(tags, profile, quiet)
       @tags = tags
       @profile = profile
       @quiet = quiet

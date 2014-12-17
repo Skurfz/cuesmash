@@ -9,10 +9,7 @@ module Cuesmash
 
     OUTPUT_PATH = "app/build/outputs/apk"
 
-    attr_accessor :tmp_dir
-
-    def initialize(tmp_dir:)
-      @tmp_dir = tmp_dir
+    def initialize
     end
 
     #

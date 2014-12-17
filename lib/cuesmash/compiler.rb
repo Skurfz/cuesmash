@@ -39,7 +39,7 @@ module Cuesmash
       end
 
       if status != 0
-        Logger.fatal "Compilation failed: #{output}"
+        # Logger.fatal "Compilation failed: #{output}"
         exit status
         status
       else

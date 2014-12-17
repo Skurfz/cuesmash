@@ -53,7 +53,7 @@ module Cuesmash
         app_server.start_server
 
         # Run the tests
-        run_tests(ios: os, tags: tags, profile: profile, format: format, output: output, quiet: quiet)
+        run_tests(tags: tags, profile: profile, format: format, output: output, quiet: quiet)
 
         # Stop the Appium server
         # app_server.stop_server
@@ -82,8 +82,8 @@ module Cuesmash
       # @param output [String] The path to the output directory to output test reports to, Optional
       # @param quiet [Boolean] quiet flag for cucumber
       #
-      def run_tests(ios:, tags:, profile:, format: nil, output: nil, quiet: false)
-        cucumber = Cuesmash::Cucumber.new(ios, tags, profile, quiet)
+      def run_tests(tags:, profile:, format: nil, output: nil, quiet: false)
+        cucumber = Cuesmash::Cucumber.new(tags, profile, quiet)
         cucumber.format = format if format
         cucumber.output = output if output
         cucumber.test
