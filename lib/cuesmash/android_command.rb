@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 # coding: utf-8
+require 'cuesmash/android_appium_text'
 
 module Cuesmash
 
@@ -15,23 +16,20 @@ module Cuesmash
     # Execute a command with some arguments
     # then figure out what we're supposed to be doing with
     # the arguments
-    #
-    # @param device [String]
-    # @param os [String]
-    # @param server [String]
-    # @param tags [Array]
-    # @param scheme [String]
-    # @param debug [Boolean]
-    # @param format [String]
-    # @param output [String]
-    # @param travis [Boolean]
-    # @param app [IosApp Object]
-    # @param profile [String]
-    # @param quiet [String]
-    # @param timeout [String] newCommandTimeout for appium in seconds
-    #
+    # 
+    # @param avd: [type] [description]
+    # @param server: [type] [description]
+    # @param tags: [type] [description]
+    # @param debug: false [type] [description]
+    # @param format: nil [type] [description]
+    # @param output: nil [type] [description]
+    # @param app: [type] [description]
+    # @param profile: [type] [description]
+    # @param quiet: false [type] [description]
+    # @param timeout: [type] [description]
+    # 
     # @return [type] [description]
-    def self.execute(emulator:, server:, tags:, app_name:, debug: false, format: nil, output: nil,  app:, profile:, quiet: false, timeout:)
+    def self.execute(avd:, server:, tags:, debug: false, format: nil, output: nil, app:, profile:, quiet: false, timeout:)
 
       if debug
         Logger.level = ::Logger::DEBUG
@@ -40,11 +38,8 @@ module Cuesmash
         end
       end
 
-      # Update the plist
-      # update_plist(scheme, app.app_path)
-
       # Update the appium.txt file
-      create_appium_txt(app: app.app_path, timeout:, avd: avd)
+      create_appium_txt(app: app.app_path, timeout: timeout, avd: avd)
 
       # start the appium server
       app_server = AppiumServer.new
@@ -84,7 +79,7 @@ module Cuesmash
     # @param timeout [String] time in seconds to set the newCommandTimeout to.
     #
     def self.create_appium_txt(platform_name: "Android", app:, timeout:, avd:)
-      appium = AndroidAppiumText.new(platform_name: platform_name, avd: avd, app: app, new_command_timeout: timeout)
+      appium = Cuesmash::AndroidAppiumText.new(platform_name: platform_name, avd: avd, app: app, new_command_timeout: timeout)
       appium.execute
     end
   end # class Command
