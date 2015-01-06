@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'cuesmash/ioscompiler'
+require 'cuesmash/ios_compiler'
 
 describe Cuesmash::IosCompiler do
 
