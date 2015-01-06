@@ -3,9 +3,9 @@
 
 require 'thor'
 require 'cuesmash'
-require 'cuesmash/ioscompiler'
+require 'cuesmash/ios_compiler'
 require 'cuesmash/androidapp'
-require 'cuesmash/androidcompiler'
+require 'cuesmash/android_compiler'
 require 'cuesmash/android_command'
 require 'byebug'
 

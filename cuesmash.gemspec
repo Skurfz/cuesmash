@@ -4,9 +4,9 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "cuesmash"
-  spec.version       = "0.1.9"
-  spec.authors       = ["Alex Fish", "Jarod McBride"]
-  spec.email         = ["fish@ustwo.co.uk", "jarod@ustwo.com"]
+  spec.version       = "0.1.9.1"
+  spec.authors       = ["Alex Fish", "Jarod McBride", "Tiago Castro"]
+  spec.email         = ["fish@ustwo.co.uk", "jarod@ustwo.com", "castro@ustwo.com"]
   spec.description   = "A gift for Juan"
   spec.summary       = "Compile an app, point the app at sinatra, run cucumber with appium"
   spec.homepage      = "https://github.com/ustwo/cuesmash"
