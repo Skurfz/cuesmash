@@ -55,14 +55,9 @@ describe Cuesmash::Command do
         Cuesmash::Cucumber.stub(:new){@mock}
       end
 
-      it "should set the cucumber ios version" do
-        Cuesmash::Cucumber.should_receive(:new).with("ios", anything, anything, anything)
-        Cuesmash::Command.run_tests(ios: "ios", tags: "tags", profile: "profile", quiet: true)
-      end
-
       it "should set the cucumber tags" do
-        Cuesmash::Cucumber.should_receive(:new).with(anything, "tags", anything, anything)
-        Cuesmash::Command.run_tests(ios: "ios", tags: "tags", profile: "profile", quiet: true)
+        Cuesmash::Cucumber.should_receive(:new).with("tags", anything, anything)
+        Cuesmash::Command.run_tests(tags: "tags", profile: "profile", quiet: true)
       end
 
       it "should set the format" do
@@ -70,7 +65,7 @@ describe Cuesmash::Command do
         Cuesmash::Cucumber.stub(:new){@cucumber}
 
         @cucumber.should_receive(:format=)
-        Cuesmash::Command.run_tests(ios: nil, tags: nil, profile: nil, format: "format", quiet: anything)
+        Cuesmash::Command.run_tests(tags: nil, profile: nil, format: "format", quiet: anything)
       end
 
       it "should set the output" do
@@ -78,12 +73,12 @@ describe Cuesmash::Command do
         Cuesmash::Cucumber.stub(:new){@cucumber}
 
         @cucumber.should_receive(:output=)
-        Cuesmash::Command.run_tests(ios: nil, tags: nil, profile: nil, format: nil, output: "output", quiet: anything)
+        Cuesmash::Command.run_tests(tags: nil, profile: nil, format: nil, output: "output", quiet: anything)
       end
 
       it "should start the tests" do
         @mock.should_receive(:test)
-        Cuesmash::Command.run_tests(ios: "ios", tags: "tags", profile: "profile", quiet: true)
+        Cuesmash::Command.run_tests(tags: "tags", profile: "profile", quiet: true)
       end
 
     end # describe "when running the cucumber tests"

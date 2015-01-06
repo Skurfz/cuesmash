@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'cuesmash/androidcompiler'
+require 'cuesmash/android_compiler'
 
 describe Cuesmash::AndroidCompiler do
 
@@ -7,21 +7,12 @@ describe Cuesmash::AndroidCompiler do
     Cuesmash::AndroidCompiler.any_instance.stub(:puts)
   end
 
-  it "should have a tmp_dir instance" do
-    compiler = Cuesmash::AndroidCompiler.new(tmp_dir: "/tmp")
-    expect(compiler.tmp_dir).to match("/tmp")
-  end
-
-
   describe "when generating the command" do
 
     before(:each) do
-      @compiler = Cuesmash::AndroidCompiler.new(tmp_dir: "/tmp")
+      @compiler = Cuesmash::AndroidCompiler.new
     end
 
-    it "should contain the tmp path" do
-      expect(@compiler.instance_eval{command}).to match(/tmp/)
-    end
   end # "when generating the command"
 
   describe "when compiling" do
@@ -33,7 +24,7 @@ describe Cuesmash::AndroidCompiler do
       wait.stub(:join)
       Open3.stub(:popen3).and_yield(nil, nil, nil, wait)
 
-      @compiler = Cuesmash::AndroidCompiler.new(tmp_dir: "/tmp")
+      @compiler = Cuesmash::AndroidCompiler.new
     end # before
 
     it "should complete if all is well" do
