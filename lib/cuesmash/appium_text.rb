@@ -27,7 +27,7 @@ module Cuesmash
     # @param  app [String] path to built .app file
     #
     # @return [AppiumText] A appiumtext instance
-    def initialize(platform_name:, device_name:, platform_version:, app:, new_command_timeout: 60)
+    def initialize(platform_name:, device_name:, platform_version: nil, app:, new_command_timeout: 60)
       @platform_name = platform_name
       @device_name = device_name
       @platform_version = platform_version
@@ -65,7 +65,7 @@ module Cuesmash
       text = "[caps]\n"
       text << "platformName = \"#{platform_name}\"\n"
       text << "deviceName = \"#{device_name}\"\n"
-      text << "platformVersion = \"#{platform_version}\"\n"
+      text << "platformVersion = \"#{platform_version}\"\n" unless platform_version == nil
       text << "app = \"#{app}\"\n"
       text << "newCommandTimeout = \"#{new_command_timeout}\"\n"
       Logger.debug "appium.text == #{text}"
