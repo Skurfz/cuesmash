@@ -1,19 +1,18 @@
 devices:
   iPhone 5s:
-    [7.1, 8.1]
+    [7.1, 8.0]
 
   iPhone 5:
-    [7.1, 8.1]
+    [7.1, 8.0]
 
   iPhone 6:
-    [8.1]
+    [8.0]
 
   iPhone 6 Plus:
-    [8.1]
+    [8.0]
 default:
   os: iPhone 5s
   version: 8.1
   test_timeout: 120
 
-platform: 'iOS'
 build_configuration: 'Debug'

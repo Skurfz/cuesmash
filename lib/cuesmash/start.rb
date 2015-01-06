@@ -11,6 +11,8 @@ require 'byebug'
 
 module Cuesmash
 
+  CONFIG_FILE = '.cuesmash.yml'
+
   # For information on how this class works see the thor documentation https://github.com/erikhuda/thor/wiki
   class Start < Thor
 
@@ -40,14 +42,6 @@ module Cuesmash
     method_option :profile, type: :string, aliases: "-p", desc: "which cucumber.yml profile to use"
     method_option :quiet, type: :boolean, aliases: "-q", desc: "cucumber quiet mode"
     # method_option :server, type: :string, aliases: "-r", desc: ""
-
-    if method_option :scheme == true
-      CONFIG_FILE = '.iosCuesmash.yml'
-    end
-    if method_option :app_name == true
-      CONFIG_FILE = '.androidCuesmash.yml'
-    end
-
     def test
 
       # get the cuesmash.yml config
