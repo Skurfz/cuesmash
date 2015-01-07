@@ -4,7 +4,7 @@
 require 'thor'
 require 'cuesmash'
 require 'cuesmash/ios_compiler'
-require 'cuesmash/androidapp'
+require 'cuesmash/android_app'
 require 'cuesmash/android_compiler'
 require 'cuesmash/android_command'
 require 'byebug'
@@ -168,7 +168,7 @@ module Cuesmash
         @app = Cuesmash::AndroidApp.new(project_name: options[:app_name], build_configuration: @config['build_configuration'])
 
         # Compile the project
-        compiler = Cuesmash::AndroidCompiler.new
+        compiler = Cuesmash::AndroidCompiler.new(options[:app_name], @config['build_configuration'])
         compiler.compile
 
         android_appium_text
