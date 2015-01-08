@@ -16,7 +16,7 @@ require 'cuesmash/compiler'
 require 'cuesmash/plist'
 require 'cuesmash/cucumber'
 require 'cuesmash/appium_text'
-require 'cuesmash/iosapp'
+require 'cuesmash/ios_app'
 require 'cuesmash/appium_server'
 
 module Cuesmash

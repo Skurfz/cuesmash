@@ -10,7 +10,7 @@ describe Cuesmash::AndroidCompiler do
   describe "when generating the command" do
 
     before(:each) do
-      @compiler = Cuesmash::AndroidCompiler.new
+      @compiler = Cuesmash::AndroidCompiler.new(project_name: nil, build_configuration: nil)
     end
 
   end # "when generating the command"
@@ -24,7 +24,7 @@ describe Cuesmash::AndroidCompiler do
       wait.stub(:join)
       Open3.stub(:popen3).and_yield(nil, nil, nil, wait)
 
-      @compiler = Cuesmash::AndroidCompiler.new
+      @compiler = Cuesmash::AndroidCompiler.new(project_name: nil, build_configuration: nil)
     end # before
 
     it "should complete if all is well" do

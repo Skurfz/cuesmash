@@ -11,7 +11,7 @@ module Cuesmash
     attr_accessor :tmp_dir
     attr_accessor :build_configuration
 
-    def initialize(scheme, tmp_dir, build_configuration)
+    def initialize(scheme:, tmp_dir:, build_configuration:)
       @scheme = scheme
       @tmp_dir = tmp_dir
       @build_configuration = build_configuration
