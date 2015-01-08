@@ -155,7 +155,7 @@ module Cuesmash
         @app = IosApp.new(file_name: options[:scheme], build_configuration: @config['build_configuration'])
 
         # Compile the project
-        compiler = Cuesmash::IosCompiler.new(options[:scheme], @app.tmp_dir, @config['build_configuration'])
+        compiler = Cuesmash::IosCompiler.new(scheme: options[:scheme], tmp_dir: @app.tmp_dir, build_configuration: @config['build_configuration'])
         compiler.compile
 
         ios_appium_text
@@ -168,7 +168,7 @@ module Cuesmash
         @app = Cuesmash::AndroidApp.new(project_name: options[:app_name], build_configuration: @config['build_configuration'])
 
         # Compile the project
-        compiler = Cuesmash::AndroidCompiler.new(options[:app_name], @config['build_configuration'])
+        compiler = Cuesmash::AndroidCompiler.new(project_name: options[:app_name],  build_configuration: @config['build_configuration'])
         compiler.compile
 
         android_appium_text
