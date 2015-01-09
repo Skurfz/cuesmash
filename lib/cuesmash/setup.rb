@@ -24,6 +24,7 @@ module Cuesmash
         create_scripts_dir
         create_build_sh
         create_gemfile
+        create_cuesmash_yml
       end
 
       # TODO: the git checkouts needs to check to see if the dirs have already been
@@ -85,6 +86,10 @@ module Cuesmash
         download_gist(gist_id:"ea786f1cf0fdbe0febb3", final_file:"Gemfile")
       end
 
+      def create_cuesmash_yml
+        download_gist(gist_id:"146a3b40991e68cb261b", final_file:".cuesmash.yml")
+      end
+
       #
       # Run the command line
       #
@@ -117,7 +122,7 @@ module Cuesmash
       #
       # Download gists files without git.
       # @param gist_id: [String] the gist id
-      # @param final_file: [String] where the final file gets saved
+      # @param final_file: [String] where the final file gets saved in relationship to the directory where the script is run.
       #
       def download_gist(gist_id:, final_file:)
         base_url = URI("https://api.github.com/gists/")

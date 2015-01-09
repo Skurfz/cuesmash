@@ -7,6 +7,7 @@ require 'cuesmash/ios_compiler'
 require 'cuesmash/android_app'
 require 'cuesmash/android_compiler'
 require 'cuesmash/android_command'
+require 'cuesmash/setup'
 require 'byebug'
 
 module Cuesmash
