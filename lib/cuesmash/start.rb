@@ -34,7 +34,7 @@ module Cuesmash
       --profile -p which cucumber.yml profile to use\n
       --quiet -q BOOLEAN cucumber quiet mode
     LONGDESC
-    method_option :scheme, type: :string, aliases: "-s", desc: "iOS only: the Xcode scheme to build"
+    method_option :scheme, type: :array, aliases: "-s", desc: "iOS only: the Xcode scheme to build"
     method_option :app_name, type: :string, aliases: "-n", desc: "Android only: the name of the app"
     method_option :tags, type: :array, aliases: "-t", desc: "the tags to pass to cucumber, for multiple tags pass one per tag"
     method_option :debug, type: :boolean, default: false, aliases: "-d", desc: "turn on debug output"
@@ -63,7 +63,7 @@ module Cuesmash
                                       os: os, 
                                       server: options[:server], 
                                       tags: options[:tags], 
-                                      scheme: options[:scheme],
+                                      scheme: options[:scheme].join(" "),
                                       debug: options[:debug], 
                                       app: @app, 
                                       profile: options[:profile], 
@@ -106,7 +106,7 @@ module Cuesmash
       --scheme -s iOS: the Xcode scheme to build\n
       --app_name -n Android: the app name
     LONGDESC
-    method_option :scheme, type: :string, aliases: "-s", desc: "the Xcode scheme to build"
+    method_option :scheme, type: :array, aliases: "-s", desc: "the Xcode scheme to build"
     method_option :app_name, type: :string, aliases: "-n", desc: "Android only: the name of the app"
     def build
 
@@ -155,7 +155,7 @@ module Cuesmash
         @app = IosApp.new(file_name: options[:scheme], build_configuration: @config['build_configuration'])
 
         # Compile the project
-        compiler = Cuesmash::IosCompiler.new(scheme: options[:scheme], tmp_dir: @app.tmp_dir, build_configuration: @config['build_configuration'])
+        compiler = Cuesmash::IosCompiler.new(scheme: options[:scheme].join(" "), tmp_dir: @app.tmp_dir, build_configuration: @config['build_configuration'])
         compiler.compile
 
         ios_appium_text
