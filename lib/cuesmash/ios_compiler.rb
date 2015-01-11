@@ -4,7 +4,7 @@ module Cuesmash
 
   #
   # iOS Specific compiler
-  # 
+  #
   class IosCompiler < Compiler
 
     attr_accessor :scheme
@@ -31,7 +31,7 @@ module Cuesmash
 
     #
     # Looks in the current directory for the workspace file and
-    # gets it's name if there is one
+    # gets its name if there is one
     #
     # @return [String] The name of the workspace file that was found along with the -workspace flag
     def workspace
