@@ -52,7 +52,7 @@ module Cuesmash
       if @config['platform'] == 'iOS'
 
         # Create new IosApp object
-        @app = IosApp.new(file_name: options[:scheme], build_configuration: @config['build_configuration'])
+        @app = IosApp.new(file_name: options[:scheme].join(" "), build_configuration: @config['build_configuration'])
 
         setup_ios
 
@@ -156,7 +156,7 @@ module Cuesmash
       # helper methods
       # 
       def setup_ios
-        @app = IosApp.new(file_name: options[:scheme], build_configuration: @config['build_configuration'])
+        @app = IosApp.new(file_name: options[:scheme].join(" "), build_configuration: @config['build_configuration'])
 
         # Compile the project
         compiler = Cuesmash::IosCompiler.new(scheme: options[:scheme].join(" "), tmp_dir: @app.tmp_dir, build_configuration: @config['build_configuration'])

@@ -2,6 +2,8 @@
 
 module Cuesmash
 
+  require 'shellwords'
+
   #
   # iOS Specific compiler
   #
@@ -23,7 +25,7 @@ module Cuesmash
     #
     # @return [String] The full xcode build command with args
     def command
-      xcode_command = "set -o pipefail && xcodebuild #{workspace} -scheme '#{@scheme}' -derivedDataPath #{@tmp_dir} -configuration #{@build_configuration} OBJROOT=#{@tmp_dir} SYMROOT=#{@tmp_dir} -sdk iphonesimulator build | bundle exec xcpretty -c"
+      xcode_command = "set -o pipefail && xcodebuild #{workspace} -scheme '#{@scheme}' -derivedDataPath #{@tmp_dir.shellescape} -configuration #{@build_configuration} OBJROOT=#{@tmp_dir.shellescape} SYMROOT=#{@tmp_dir.shellescape} -sdk iphonesimulator build | bundle exec xcpretty -c"
 
       Logger.info "xcode_command == #{xcode_command}"
       xcode_command
