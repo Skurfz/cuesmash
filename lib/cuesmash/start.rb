@@ -58,6 +58,9 @@ module Cuesmash
         # enumerate over each device / OS combination and run the tests.
         @config['devices'].each do |device, oses|
           oses.each do |os|
+            say "Cleaning up iOS Simulator"
+            reset_ios_simulator
+
             say "\n============================\ntesting iOS #{os} on #{device}", :green
             Cuesmash::Command.execute(device: device, 
                                       os: os, 
@@ -195,6 +198,14 @@ module Cuesmash
                                                   app: @app.app_path, 
                                                   new_command_timeout: @config['default']['test_timeout'].to_s)
         appium.execute
+      end # android_appium_text
+
+      # 
+      # Removes the settings and contents for the iOS simulator.
+      # 
+      # @return [type] [description]
+      def reset_ios_simulator
+        
       end
     end # no_commands
   end # Start class
