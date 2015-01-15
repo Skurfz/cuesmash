@@ -4,7 +4,7 @@ module Cuesmash
 
   #
   # iOS Specific compiler
-  # 
+  #
   class IosCompiler < Compiler
 
     attr_accessor :scheme
@@ -23,7 +23,7 @@ module Cuesmash
     #
     # @return [String] The full xcode build command with args
     def command
-      xcode_command = "set -o pipefail && xcodebuild #{workspace} -scheme #{@scheme} -derivedDataPath #{@tmp_dir} -configuration #{@build_configuration} OBJROOT=#{@tmp_dir} SYMROOT=#{@tmp_dir} -sdk iphonesimulator build | bundle exec xcpretty -c"
+      xcode_command = "set -o pipefail && xcodebuild #{workspace} -scheme '#{@scheme}' -derivedDataPath #{@tmp_dir} -configuration #{@build_configuration} OBJROOT=#{@tmp_dir} SYMROOT=#{@tmp_dir} -sdk iphonesimulator build | bundle exec xcpretty -c"
 
       Logger.info "xcode_command == #{xcode_command}"
       xcode_command
@@ -31,7 +31,7 @@ module Cuesmash
 
     #
     # Looks in the current directory for the workspace file and
-    # gets it's name if there is one
+    # gets its name if there is one
     #
     # @return [String] The name of the workspace file that was found along with the -workspace flag
     def workspace

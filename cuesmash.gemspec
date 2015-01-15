@@ -7,8 +7,8 @@ Gem::Specification.new do |spec|
   spec.version       = "0.1.9.3"
   spec.authors       = ["Alex Fish", "Jarod McBride", "Tiago Castro"]
   spec.email         = ["fish@ustwo.co.uk", "jarod@ustwo.com", "castro@ustwo.com"]
-  spec.description   = "A gift for Juan"
-  spec.summary       = "Compile an app, point the app at sinatra, run cucumber with appium"
+  spec.description   = "Appium project manager"
+  spec.summary       = "Compile an app and run cucumber with appium"
   spec.homepage      = "https://github.com/ustwo/cuesmash"
   spec.license       = "MIT"
 
