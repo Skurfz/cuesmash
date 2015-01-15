@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cuesmash (0.1.11)
+    cuesmash (0.1.9.3)
       CFPropertyList (>= 2.2.8)
       rest-client (~> 1.7.2)
       thor (>= 0.19.1)
@@ -10,7 +10,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    CFPropertyList (2.2.8)
+    CFPropertyList (2.3.0)
     byebug (3.5.1)
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
