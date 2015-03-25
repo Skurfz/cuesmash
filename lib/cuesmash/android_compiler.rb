@@ -1,13 +1,11 @@
 # coding: utf-8
 
 module Cuesmash
-
   #
   # iOS Specific compiler
-  # 
+  #
   class AndroidCompiler < Compiler
-
-    OUTPUT_PATH = "app/build/outputs/apk"
+    OUTPUT_PATH = 'app/build/outputs/apk'
 
     attr_accessor :project_name
     attr_accessor :build_configuration
@@ -23,14 +21,13 @@ module Cuesmash
     #
     # @return [String] The full gradle build command with args
     def command
-
       case
-        when @build_configuration == 'debug'
-          gradle_command = './gradlew assembleDebug'
-        when @build_configuration == 'release'
-          gradle_command = './gradlew assemble'
-        else
-          puts '/nBuild configuration not found or invalid build configuration'
+      when @build_configuration == 'debug'
+        gradle_command = './gradlew assembleDebug'
+      when @build_configuration == 'release'
+        gradle_command = './gradlew assemble'
+      else
+        puts '/nBuild configuration not found or invalid build configuration'
       end
 
       Logger.info "gradle_command == #{gradle_command}"

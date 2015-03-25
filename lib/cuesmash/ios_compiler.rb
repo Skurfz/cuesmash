@@ -1,14 +1,12 @@
 # coding: utf-8
 
 module Cuesmash
-
   require 'shellwords'
 
   #
   # iOS Specific compiler
   #
   class IosCompiler < Compiler
-
     attr_accessor :scheme
     attr_accessor :tmp_dir
     attr_accessor :build_configuration
@@ -37,13 +35,13 @@ module Cuesmash
     #
     # @return [String] The name of the workspace file that was found along with the -workspace flag
     def workspace
-      wp = Dir["*.xcworkspace"].first
+      wp = Dir['*.xcworkspace'].first
       if wp
         flag = "-workspace #{wp}"
         Logger.debug "workspace == #{wp}"
         return flag
       else
-        Logger.debug "no workspace found"
+        Logger.debug 'no workspace found'
         return wp
       end
     end # workspace

@@ -1,13 +1,11 @@
 # coding: utf-8
 
 module Cuesmash
-
   #
   # The calamsash compiler will compiles the Xcode project with the
   # scheme it's told to compile with.
   #
   class Compiler
-
     # Public: the Scheme the compiler is compiling
     attr_accessor :scheme
     attr_accessor :tmp_dir
@@ -25,11 +23,11 @@ module Cuesmash
       started
       status = nil
 
-      Open3.popen3 command do |stdin, out, err, wait_thr|
+      Open3.popen3 command do |_stdin, out, err, wait_thr|
         print "\n"
         [out, err].each do |stream|
           Thread.new do
-            until (line = stream.gets).nil? do
+            until (line = stream.gets).nil?
               Logger.info line
             end
           end
@@ -53,14 +51,14 @@ module Cuesmash
     # Output a nice message for starting
     #
     def started
-      Logger.info "Compiling"
+      Logger.info 'Compiling'
     end
 
     #
     # Output a nice message for completing
     #
     def completed
-      Logger.info "Compiled 👌"
+      Logger.info 'Compiled 👌'
     end
   end # class compiler
 end # module cuesmash

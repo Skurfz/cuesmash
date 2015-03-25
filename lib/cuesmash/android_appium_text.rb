@@ -2,27 +2,25 @@
 # coding: utf-8
 
 module Cuesmash
-
   #
   # Creates the appium.txt file that is needed by appium
   #
   # @author [jarod]
   #
   class AndroidAppiumText
-
     attr_accessor :appium_avd
     attr_accessor :appium_app
     attr_accessor :appium_platform_name
     attr_accessor :appium_new_command_timeout
     attr_accessor :appium_text_for_file
 
-    # 
+    #
     # [initialize description]
     # @param platform_name: [type] [description]
     # @param avd: [type] [description]
     # @param app: [type] [description]
     # @param new_command_timeout: 60 [type] [description]
-    # 
+    #
     # @return [type] [description]
     def initialize(platform_name:, avd:, app:, new_command_timeout: 60)
       @appium_platform_name = platform_name
@@ -40,16 +38,16 @@ module Cuesmash
     private
 
     def started
-      Logger.info "Updating appium.txt"
+      Logger.info 'Updating appium.txt'
     end
 
     def update
       @appium_text_for_file = file_text
-      IO.write("features/support/appium.txt", @appium_text_for_file)
+      IO.write('features/support/appium.txt', @appium_text_for_file)
     end
 
     def completed
-      Logger.info "appium.txt updated 👌"
+      Logger.info 'appium.txt updated 👌'
     end
 
     # [caps]
