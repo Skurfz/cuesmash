@@ -3,7 +3,6 @@
 require 'cuesmash/android_appium_text'
 
 module Cuesmash
-
   #
   # The main point of entry for all commands, Command parses command line arguments
   # and decides what to do about them.
@@ -11,12 +10,11 @@ module Cuesmash
   # @author [alexfish]
   #
   class AndroidCommand
-
     #
     # Execute a command with some arguments
     # then figure out what we're supposed to be doing with
     # the arguments
-    # 
+    #
     # @param avd: [type] [description]
     # @param server: [type] [description]
     # @param tags: [type] [description]
@@ -27,13 +25,12 @@ module Cuesmash
     # @param profile: [type] [description]
     # @param quiet: false [type] [description]
     # @param timeout: [type] [description]
-    # 
+    #
     # @return [type] [description]
     def self.execute(avd:, server:, tags:, debug: false, format: nil, output: nil, app:, profile:, quiet: false, timeout:)
-
       if debug
         Logger.level = ::Logger::DEBUG
-        Logger.formatter = proc do |serverity, time, progname, msg|
+        Logger.formatter = proc do |serverity, time, _progname, msg|
           "\n#{time}\t#{serverity}\t#{msg.rstrip}"
         end
       end
@@ -47,10 +44,6 @@ module Cuesmash
 
       # Run the tests
       run_tests(tags: tags, profile: profile, format: format, output: output, quiet: quiet)
-
-      # Stop the Appium server
-      # app_server.stop_server
-
     end # execute
 
     #
@@ -78,8 +71,11 @@ module Cuesmash
     # @param app [String] path to built .app file
     # @param timeout [String] time in seconds to set the newCommandTimeout to.
     #
-    def self.create_appium_txt(platform_name: "Android", app:, timeout:, avd:)
-      appium = Cuesmash::AndroidAppiumText.new(platform_name: platform_name, avd: avd, app: app, new_command_timeout: timeout)
+    def self.create_appium_txt(platform_name: 'Android', app:, timeout:, avd:)
+      appium = Cuesmash::AndroidAppiumText.new(platform_name: platform_name,
+                                               avd: avd,
+                                               app: app,
+                                               new_command_timeout: timeout)
       appium.execute
     end
   end # class Command

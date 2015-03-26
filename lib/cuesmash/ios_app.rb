@@ -4,12 +4,10 @@
 require 'cuesmash/app'
 
 module Cuesmash
-
   #
   # Provides an object to get information about the ios app that is being built.
   #
   class IosApp < App
-
     # Public: the path to the dir containing the built app i.e. /tmp/MyAppQWERQW/Build/Products/Debug-iphonesimulator/
     attr_reader :app_dir
 
@@ -30,12 +28,12 @@ module Cuesmash
     #
     # @return [App] A app instance
     def initialize(file_name:, build_configuration:)
-      @app_name = "#{file_name}" << ".app"
+      @app_name = "#{file_name}" << '.app'
       @tmp_dir = Dir.mktmpdir(file_name)
       @build_configuration = build_configuration
 
       @app_dir = "#{@tmp_dir}" << "/#{@build_configuration}-iphonesimulator/"
-  
+
       @app_path = "#{@app_dir}" << "#{@app_name}"
     end
   end # class IosApp

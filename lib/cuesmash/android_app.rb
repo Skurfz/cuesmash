@@ -2,12 +2,10 @@
 # coding: utf-8
 
 module Cuesmash
-
   #
   # Provides an object to get information about the ios app that is being built.
   #
   class AndroidApp < App
-
     # app/build/outputs/apk/
     attr_reader :app_dir
 
@@ -25,12 +23,9 @@ module Cuesmash
     #
     # @return [App] A app instance
     def initialize(project_name:, build_configuration:)
-      @app_name = "#{project_name}-#{build_configuration}" << ".apk"
-
-      @app_dir = File.expand_path("./app/build/outputs/apk/")
-  
+      @app_name = "#{project_name}-#{build_configuration}" << '.apk'
+      @app_dir = File.expand_path('./app/build/outputs/apk/')
       @app_path = "#{@app_dir}/" << "#{@app_name}"
     end
-
   end # class AndroidApp
 end # module Cuesmash

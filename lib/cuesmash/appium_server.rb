@@ -2,14 +2,12 @@
 # coding: utf-8
 
 module Cuesmash
-
   #
   # Provides an interface for starting the appium server
   #
   # @author [jarod]
   #
   class AppiumServer
-
     # Public: the output directory for the tests
     attr_accessor :output
 
@@ -19,7 +17,7 @@ module Cuesmash
     #
     # Create a new instance of AppiumServer
     #
-    def initialize()
+    def initialize
     end
 
     #
@@ -28,7 +26,7 @@ module Cuesmash
     def start_server
       started
 
-      command = "appium --log-level debug"
+      command = 'appium --log-level debug'
 
       @stdin, @stdout, @stderr, @wait_thr = Open3.popen3(command)
       Logger.info "Appium running with pid: #{@wait_thr.pid}"
@@ -36,7 +34,7 @@ module Cuesmash
       if Logger.debug?
         [@stdout, @stderr].each do |stream|
           Thread.new do
-            until (line = stream.gets).nil? do
+            until (line = stream.gets).nil?
               Logger.debug line
             end
           end
@@ -62,14 +60,14 @@ module Cuesmash
     # Output a nice message for starting
     #
     def started
-      Logger.info "Starting Appium Server"
+      Logger.info 'Starting Appium Server'
     end
 
     #
     # Output a nice message for completing
     #
     def completed
-      Logger.info "Stopping Appium server 👌"
+      Logger.info 'Stopping Appium server 👌'
     end
   end
 end
