@@ -20,7 +20,7 @@ module Cuesmash
       Cuesmash::Setup.setup
     end
 
-    desc 'test OPTIONS", "run the tests'
+    desc 'test OPTIONS', 'run the tests'
     long_desc <<-LONGDESC
       --tags -t the tags to pass to cucumber, for multiple tags pass one per tag. See cucumber tags for more info. https://github.com/cucumber/cucumber/wiki/Tags\n
       --output -o The output directory for the test report --not yet implemented--\n

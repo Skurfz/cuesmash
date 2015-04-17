@@ -23,15 +23,16 @@ module Cuesmash
     def command
       case
       when @build_configuration == 'debug'
-        gradle_command = './gradlew assembleDebug'
+        gradle_assemble_command = './gradlew assembleDebug'
+      when @build_configuration == 'bdd-debug'
+          gradle_assemble_command = './gradlew assembleBddDebug'
       when @build_configuration == 'release'
-        gradle_command = './gradlew assemble'
+        gradle_assemble_command = './gradlew assemble'
       else
         puts '/nBuild configuration not found or invalid build configuration'
       end
-
-      Logger.info "gradle_command == #{gradle_command}"
-      gradle_command
+      Logger.info "gradle_assemble_command == #{gradle_assemble_command}"
+      gradle_assemble_command
     end # command
   end # class AndroidCompiler
 end # module Cuesmash
