@@ -28,6 +28,7 @@ module Cuesmash
     # @return [type] [description]
     def self.execute(device:,
                      os:,
+                     scheme:,
                      tags:,
                      debug: false,
                      format: nil,

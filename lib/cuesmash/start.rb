@@ -54,8 +54,8 @@ module Cuesmash
       # Compile the project
       if @config['platform'] == 'iOS'
 
-        # Create new IosApp object
-        @app = IosApp.new(file_name: options[:scheme].join(' '), build_configuration: @config['build_configuration'])
+        # # Create new IosApp object
+        # @app = IosApp.new(file_name: options[:scheme].join(' '), build_configuration: @config['build_configuration'])
 
         setup_ios
 
@@ -68,9 +68,8 @@ module Cuesmash
             say "\n============================\ntesting iOS #{os} on #{device}", :green
             Cuesmash::Command.execute(device: device,
                                       os: os,
-                                      server: options[:server],
+                                      scheme: options[:scheme],
                                       tags: options[:tags],
-                                      scheme: options[:scheme].join(' '),
                                       debug: options[:debug],
                                       app: @app,
                                       profile: options[:profile],
