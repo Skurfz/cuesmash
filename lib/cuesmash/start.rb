@@ -54,9 +54,6 @@ module Cuesmash
       # Compile the project
       if @config['platform'] == 'iOS'
 
-        # # Create new IosApp object
-        # @app = IosApp.new(file_name: options[:scheme].join(' '), build_configuration: @config['build_configuration'])
-
         setup_ios
 
         # enumerate over each device / OS combination and run the tests.
