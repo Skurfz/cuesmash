@@ -83,11 +83,11 @@ module Cuesmash
       end
 
       def create_gemfile
-        download_gist(gist_id: 'ea786f1cf0fdbe0febb3', final_file: 'Gemfile')
+        download_gist(gist_id: 'a5a689b072f0b69ec231', final_file: 'Gemfile')
       end
 
       def create_cuesmash_yml
-        download_gist(gist_id: '146a3b40991e68cb261b', final_file: '.cuesmash.yml')
+        download_gist(gist_id: '788fd566f970703e772b', final_file: '.cuesmash.yml')
       end
 
       #
