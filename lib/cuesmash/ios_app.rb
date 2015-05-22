@@ -27,14 +27,14 @@ module Cuesmash
     # @param build_configuration [String] which iOS build configuration to run i.e. Release, Debug
     #
     # @return [App] A app instance
-    def initialize(file_name:, build_configuration:, target:)
+    def initialize(file_name:, build_configuration:, app_name:)
 
-      if target == ''
-        target = file_name
+      if app_name == ''
+        app_name = app_name
       end
 
-      @app_name = "#{target}" << '.app'
-      @tmp_dir = Dir.mktmpdir(target)
+      @app_name = "#{app_name}" << '.app'
+      @tmp_dir = Dir.mktmpdir(app_name)
       @build_configuration = build_configuration
 
       @app_dir = "#{@tmp_dir}" << "/#{@build_configuration}-iphonesimulator/"

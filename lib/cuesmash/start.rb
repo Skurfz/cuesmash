@@ -154,7 +154,7 @@ module Cuesmash
       # helper methods
       #
       def setup_ios
-        @app = IosApp.new(file_name: options[:scheme].join(' '), build_configuration: @config['build_configuration'], target: @config['target'])
+        @app = IosApp.new(file_name: options[:scheme].join(' '), build_configuration: @config['build_configuration'], app_name: @config['app_name'])
 
         # Compile the project
         compiler = Cuesmash::IosCompiler.new(scheme: options[:scheme].join(' '),
