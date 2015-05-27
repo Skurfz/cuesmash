@@ -30,7 +30,7 @@ module Cuesmash
     def initialize(file_name:, build_configuration:, app_name:)
 
       if app_name == ''
-        app_name = app_name
+        app_name = file_name
       end
 
       @app_name = "#{app_name}" << '.app'
