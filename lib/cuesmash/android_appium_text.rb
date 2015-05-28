@@ -59,7 +59,9 @@ module Cuesmash
       text = "[caps]\n"
       text << "platformName = \"#{appium_platform_name}\"\n"
       text << "deviceName = \"Android Emulator\"\n"
+      if appium_avd == ''
       text << "avd = \"#{appium_avd}\"\n"
+      end
       text << "app = \"#{appium_app}\"\n"
       text << "newCommandTimeout = \"#{appium_new_command_timeout}\"\n"
       Logger.debug "appium.text == #{text}"

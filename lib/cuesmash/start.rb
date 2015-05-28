@@ -197,7 +197,7 @@ module Cuesmash
       #
       def android_appium_text
         appium = Cuesmash::AndroidAppiumText.new(platform_name: @config['platform'],
-                                                 avd: @config['default_emulator'],
+                                                 avd: @config['devices']['emulators'].first,
                                                  app: @app.app_path,
                                                  new_command_timeout: @config['default']['test_timeout'].to_s)
         appium.execute

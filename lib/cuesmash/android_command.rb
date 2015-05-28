@@ -36,7 +36,7 @@ module Cuesmash
       end
 
       # Update the appium.txt file
-      create_appium_txt(app: app.app_path, timeout: timeout, avd: avd)
+      create_appium_txt(avd: avd, app: app.app_path, timeout: timeout)
 
       # start the appium server
       app_server = AppiumServer.new
@@ -71,7 +71,7 @@ module Cuesmash
     # @param app [String] path to built .app file
     # @param timeout [String] time in seconds to set the newCommandTimeout to.
     #
-    def self.create_appium_txt(platform_name: 'Android', app:, timeout:, avd:)
+    def self.create_appium_txt(platform_name: 'Android', avd:, app:, timeout:)
       appium = Cuesmash::AndroidAppiumText.new(platform_name: platform_name,
                                                avd: avd,
                                                app: app,

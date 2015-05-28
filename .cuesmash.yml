@@ -23,7 +23,7 @@ default:
 
 platform: 'iOS'
 build_configuration: 'Debug'
-app_name: 'PowaTag'
+app_name: 'MyApp'
 
 # Android Example
 devices:
