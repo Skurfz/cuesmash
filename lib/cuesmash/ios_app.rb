@@ -29,7 +29,7 @@ module Cuesmash
     # @return [App] A app instance
     def initialize(file_name:, build_configuration:, app_name:)
 
-      unless app_name.nil?
+      unless !app_name.nil?
         app_name = file_name
       end
 
