@@ -88,9 +88,8 @@ module Cuesmash
         setup_android
 
         # enumerate over each device / OS combination and run the tests.
-        @config['devices']['emulators'].each do |emulator|
-          say "\n============================\ntesting Android on #{emulator}", :green
-          Cuesmash::AndroidCommand.execute(avd: emulator,
+        if @config['devices']['emulators'].first.nil?
+          Cuesmash::AndroidCommand.execute(avd: @config['devices']['emulators'].first,
                                            server: options[:server],
                                            tags: options[:tags],
                                            debug: options[:debug],
@@ -98,7 +97,20 @@ module Cuesmash
                                            profile: options[:profile],
                                            quiet: options[:quiet],
                                            timeout: @config['default']['test_timeout'].to_s)
-        end # device each
+        else
+          @config['devices']['emulators'].each do |emulator|
+            say "\n============================\ntesting Android on #{emulator}", :green
+            Cuesmash::AndroidCommand.execute(avd: emulator,
+                                             server: options[:server],
+                                             tags: options[:tags],
+                                             debug: options[:debug],
+                                             app: @app,
+                                             profile: options[:profile],
+                                             quiet: options[:quiet],
+                                             timeout: @config['default']['test_timeout'].to_s)
+          end # device each
+        end
+
       else
         say "please set platform: 'iOS' or 'Android' in your .cuesmash.yml file", :red
         return
@@ -112,6 +124,7 @@ module Cuesmash
     LONGDESC
     method_option :scheme, type: :array, aliases: '-s', desc: 'the Xcode scheme to build'
     method_option :app_name, type: :string, aliases: '-n', desc: 'Android only: the name of the app'
+
     def build
       # get the cuesmash.yml config
       @config = load_config
@@ -148,13 +161,13 @@ module Cuesmash
           return
         end
         config
-      end # end load_config
+      end # load_config
 
       #
       # helper methods
       #
       def setup_ios
-        @app = IosApp.new(file_name: options[:scheme].join(' '), build_configuration: @config['build_configuration'])
+        @app = IosApp.new(file_name: options[:scheme].join(' '), build_configuration: @config['build_configuration'], app_name: @config['app_name'])
 
         # Compile the project
         compiler = Cuesmash::IosCompiler.new(scheme: options[:scheme].join(' '),
@@ -197,11 +210,13 @@ module Cuesmash
       #
       def android_appium_text
         appium = Cuesmash::AndroidAppiumText.new(platform_name: @config['platform'],
-                                                 avd: @config['default_emulator'],
+                                                 avd: @config['devices']['emulators'].first,
                                                  app: @app.app_path,
                                                  new_command_timeout: @config['default']['test_timeout'].to_s)
         appium.execute
-      end # android_appium_text
+      end
+
+      # android_appium_text
 
       #
       # Removes the settings and contents for the iOS simulator.
