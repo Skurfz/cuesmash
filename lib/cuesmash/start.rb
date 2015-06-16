@@ -16,7 +16,6 @@ module Cuesmash
   # For information on how this class works see the thor documentation https://github.com/erikhuda/thor/wiki
   class Start < Thor
     desc 'init', 'set up the project'
-
     def init
       Cuesmash::Setup.setup
     end
@@ -149,9 +148,7 @@ module Cuesmash
       end
 
       say "\nYour build is available at #{@app.app_path}", :green
-    end
-
-    # build
+    end # build
 
     no_commands do
       #
@@ -166,9 +163,7 @@ module Cuesmash
           return
         end
         config
-      end
-
-      # end load_config
+      end # load_config
 
       #
       # helper methods

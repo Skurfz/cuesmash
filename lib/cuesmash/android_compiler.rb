@@ -22,7 +22,7 @@ module Cuesmash
     # @return [String] The full gradle build command with args
     def command
       if @build_configuration.nil? == false
-        gradle_assemble_command = "./gradlew assemble#{@build_configuration.gsub('-','')}"
+        gradle_assemble_command = "./gradlew assemble#{@build_configuration.gsub('-', '')}"
       else
         puts '/nBuild configuration not found or invalid build configuration'
       end
