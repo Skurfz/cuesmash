@@ -115,9 +115,7 @@ module Cuesmash
         say "please set platform: 'iOS' or 'Android' in your .cuesmash.yml file", :red
         return
       end
-    end
-
-    # test
+    end # test
 
     desc 'build OPTIONS', 'compile the app and create appium.txt to use for arc'
     long_desc <<-LONGDESC
