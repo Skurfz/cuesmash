@@ -4,9 +4,9 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "cuesmash"
-  spec.version       = "0.1.8"
-  spec.authors       = ["Alex Fish", "Jarod McBride"]
-  spec.email         = ["fish@ustwo.co.uk", "jarod@ustwo.com"]
+  spec.version       = "0.3"
+  spec.authors       = ["Alex Fish", "Jarod McBride", "Tiago Castro"]
+  spec.email         = ["fish@ustwo.co.uk", "jarod@ustwo.com", "castro@ustwo.com"]
   spec.description   = "A gift for Juan"
   spec.summary       = "Compile an app, point the app at sinatra, run cucumber with appium"
   spec.homepage      = "https://github.com/ustwo/cuesmash"
@@ -26,7 +26,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry', '>= 0.10.1'
   spec.add_development_dependency 'byebug', '>= 3.5.1'
 
-  spec.add_runtime_dependency 'CFPropertyList', '>= 2.2.8'
   spec.add_runtime_dependency 'thor', '>= 0.19.1'
   spec.add_runtime_dependency 'xcpretty', '>= 0.1.7'
   spec.add_runtime_dependency 'rest-client', '~> 1.7.2'
