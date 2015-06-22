@@ -24,10 +24,12 @@ module Cuesmash
         create_scripts_dir
         create_build_sh
         create_gemfile
+        create_cuesmash_yml
       end
 
       # TODO: the git checkouts needs to check to see if the dirs have already been
       # checked out.
+      # TODO: (JM) turns out that appium needs to have `brew install ant` run before it will work for android
 
       private
 
@@ -36,22 +38,22 @@ module Cuesmash
       # come find me and I'll beat you with a ruby hammer.
       #
       def install_cucumber
-        command_runner(command: "gem install --no-rdoc --no-ri cucumber")
+        command_runner(command: 'gem install --no-rdoc --no-ri cucumber')
       end
 
       # TODO: check if these exist already
       def create_features_dir
-        command_runner(command: "mkdir -p features/{support,step_definitions}")
+        command_runner(command: 'mkdir -p features/{support,step_definitions}')
       end
 
       # TODO: check if this file exists already. If so ask if you want to overwrite it.
       def create_env_rb
-        download_gist(gist_id:"9fa5e495758463ee5340", final_file:"features/support/env.rb")
+        download_gist(gist_id: '9fa5e495758463ee5340', final_file: 'features/support/env.rb')
       end
 
       # TODO: this is failing.
       def install_appium_console
-        command_runner(command: "gem install --no-rdoc --no-ri appium_console")
+        command_runner(command: 'gem install --no-rdoc --no-ri appium_console')
       end
 
       def install_brew
@@ -59,29 +61,33 @@ module Cuesmash
         if brew_path == 0
           command_runner(command: "ruby -e \"$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)\"")
         else
-          Logger.info "Brew already installed."
+          Logger.info 'Brew already installed.'
         end
       end
 
       def install_node
-        command_runner(command: "brew update; brew upgrade node; brew install node")
+        command_runner(command: 'brew update; brew upgrade node; brew install node')
       end
 
       def create_travis_yml
-        download_gist(gist_id:"74cc418331bd81651746", final_file:".travis.yml")
+        download_gist(gist_id: '74cc418331bd81651746', final_file: '.travis.yml')
       end
 
       def create_scripts_dir
-        puts "creating scripts dir"
-        command_runner(command: "mkdir -p scripts")
+        puts 'creating scripts dir'
+        command_runner(command: 'mkdir -p scripts')
       end
 
       def create_build_sh
-        download_gist(gist_id:"8df9762a103c694f5773", final_file:"scripts/build.sh")
+        download_gist(gist_id: '8df9762a103c694f5773', final_file: 'scripts/build.sh')
       end
 
       def create_gemfile
-        download_gist(gist_id:"ea786f1cf0fdbe0febb3", final_file:"Gemfile")
+        download_gist(gist_id: 'a5a689b072f0b69ec231', final_file: 'Gemfile')
+      end
+
+      def create_cuesmash_yml
+        download_gist(gist_id: '788fd566f970703e772b', final_file: '.cuesmash.yml')
       end
 
       #
@@ -92,10 +98,10 @@ module Cuesmash
       def command_runner(command:)
         status = nil
         Logger.info "Starting: #{command}"
-        Open3.popen3 command do |stdin, out, err, wait_thr|
+        Open3.popen3 command do |_stdin, out, err, wait_thr|
           [out, err].each do |stream|
             Thread.new do
-              until (line = stream.gets).nil? do
+              until (line = stream.gets).nil?
                 Logger.info line
               end # until
             end # Thread.new
@@ -110,16 +116,15 @@ module Cuesmash
         else
           Logger.info "Finished: #{command}"
         end
-        return
       end # command_runner
 
       #
       # Download gists files without git.
       # @param gist_id: [String] the gist id
-      # @param final_file: [String] where the final file gets saved
+      # @param final_file: [String] where the final file gets saved in relationship to the directory where the script is run.
       #
       def download_gist(gist_id:, final_file:)
-        base_url = URI("https://api.github.com/gists/")
+        base_url = URI('https://api.github.com/gists/')
         json = JSON.parse(RestClient.get(URI.join(base_url, gist_id).to_s))
         file_name = json['files'].keys[0]
         raw_url = json['files'][file_name]['raw_url']

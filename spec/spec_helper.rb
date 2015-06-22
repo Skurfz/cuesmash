@@ -1,4 +1,10 @@
-require "cuesmash"
+require 'cuesmash'
+require 'simplecov'
+
+SimpleCov.start do
+  add_filter '/spec/'
+  add_filter '/pkg/'
+end
 
 RSpec.configure do |config|
   # ...

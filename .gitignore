@@ -17,3 +17,12 @@ tmp
 .yardoc
 _yardoc
 doc/
+.idea/.name
+.idea/.rakeTasks
+.idea/cuesmash.iml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/scopes/scope_settings.xml

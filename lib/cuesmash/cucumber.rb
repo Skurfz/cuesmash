@@ -2,7 +2,6 @@
 # coding: utf-8
 
 module Cuesmash
-
   #
   # Provides a nice interface to cucumber, allowing
   # us to run the cucumber test suite
@@ -10,7 +9,6 @@ module Cuesmash
   # @author [alexfish]
   #
   class Cucumber
-
     # Public: the output directory for the tests
     attr_accessor :output
 
@@ -30,8 +28,7 @@ module Cuesmash
     # @param profile [String] the cucumber profile to use for the tests
     # @param quiet [Boolean]
     #
-    def initialize(ios, tags, profile, quiet)
-      @ios = ios
+    def initialize(tags, profile, quiet)
       @tags = tags
       @profile = profile
       @quiet = quiet
@@ -44,16 +41,13 @@ module Cuesmash
       started
 
       status = nil
-      output = ""
 
-      cucumber_command = command
-      Logger.debug "cucumber_command == #{cucumber_command}"
+      Logger.debug "cucumber_command == #{command}"
 
-      Open3.popen3 cucumber_command do |stdin, out, err, wait_thr|
-
+      Open3.popen3 command do |_stdin, out, err, wait_thr|
         [out, err].each do |stream|
           Thread.new do
-            until (line = stream.gets).nil? do
+            until (line = stream.gets).nil?
               Logger.info line
             end
           end
@@ -64,8 +58,7 @@ module Cuesmash
       end
 
       if status != 0
-        Logger.info "Cucumber failed"
-        # exit status
+        Logger.info 'Cucumber failed'
         status
       else
         completed
@@ -78,14 +71,14 @@ module Cuesmash
     # Output a nice message for starting
     #
     def started
-      Logger.info "Running Cucumber"
+      Logger.info 'Running Cucumber'
     end
 
     #
     # Output a nice message for completing
     #
     def completed
-      Logger.info "Cucumber Completed 👌"
+      Logger.info 'Cucumber Completed 👌'
     end
 
     #
@@ -94,13 +87,13 @@ module Cuesmash
     #
     # @return [String] The cucumber command string
     def command
-      command_string = "cucumber"
-      command_string += " --format #{self.format}" if self.format
-      command_string += " --out #{self.output}" if self.output
-      command_string += " --profile #{self.profile}" if self.profile
-      command_string += @tags.to_a.empty? ? "" : tag_arguments
-      command_string += " --quiet" if self.quiet
-      command_string += " -c"
+      command_string = 'cucumber'
+      command_string += " --format #{format}" if format
+      command_string += " --out #{output}" if output
+      command_string += " --profile #{profile}" if profile
+      command_string += @tags.to_a.empty? ? '' : tag_arguments
+      command_string += ' --quiet' if quiet
+      command_string += ' -c'
 
       Logger.debug "cucumber command == #{command_string}"
 
@@ -113,9 +106,9 @@ module Cuesmash
     #
     # @return [String] The --tags commands ready to go
     def tag_arguments
-      command_tag = ""
+      command_tag = ''
       @tags.each do |tag_set|
-        command_tag = "" unless command_tag
+        command_tag = '' unless command_tag
         command_tag += " --tags #{tag_set}"
       end
 

@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.version       = "0.3"
   spec.authors       = ["Alex Fish", "Jarod McBride", "Tiago Castro"]
   spec.email         = ["fish@ustwo.co.uk", "jarod@ustwo.com", "castro@ustwo.com"]
-  spec.description   = "A gift for Juan"
+  spec.description   = "Appium project manager"
   spec.summary       = "Compile an app, point the app at sinatra, run cucumber with appium"
   spec.homepage      = "https://github.com/ustwo/cuesmash"
   spec.license       = "MIT"
@@ -21,10 +21,11 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency 'rake', '>= 10.3.2'
-  spec.add_development_dependency 'rspec', '>= 3.1.0'
+  spec.add_development_dependency 'rspec', '>= 3.3.0'
   spec.add_development_dependency 'guard-rspec', '>= 4.3.1'
   spec.add_development_dependency 'pry', '>= 0.10.1'
-  spec.add_development_dependency 'byebug', '>= 3.5.1'
+  spec.add_development_dependency 'byebug', '>= 5.0.0'
+  spec.add_development_dependency 'simplecov', '~> 0.10.0'
 
   spec.add_runtime_dependency 'thor', '>= 0.19.1'
   spec.add_runtime_dependency 'xcpretty', '>= 0.1.7'

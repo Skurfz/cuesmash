@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 # coding: utf-8
+require 'cuesmash/android_appium_text'
 
 module Cuesmash
   #
@@ -8,35 +9,25 @@ module Cuesmash
   #
   # @author [alexfish]
   #
-  class Command
+  class AndroidCommand
     #
     # Execute a command with some arguments
     # then figure out what we're supposed to be doing with
     # the arguments
     #
-    # @param device [String]
-    # @param os [String]
-    # @param tags [Array]
-    # @param debug [Boolean]
-    # @param format [String]
-    # @param output [String]
-    # @param app [IosApp Object]
-    # @param profile [String]
-    # @param quiet [String]
-    # @param timeout [String] newCommandTimeout for appium in seconds
+    # @param avd: [type] [description]
+    # @param server: [type] [description]
+    # @param tags: [type] [description]
+    # @param debug: false [type] [description]
+    # @param format: nil [type] [description]
+    # @param output: nil [type] [description]
+    # @param app: [type] [description]
+    # @param profile: [type] [description]
+    # @param quiet: false [type] [description]
+    # @param timeout: [type] [description]
     #
     # @return [type] [description]
-    def self.execute(device:,
-                     os:,
-                     scheme:,
-                     tags:,
-                     debug: false,
-                     format: nil,
-                     output: nil,
-                     app:,
-                     profile:,
-                     quiet: false,
-                     timeout:)
+    def self.execute(avd:, server:, tags:, debug: false, format: nil, output: nil, app:, profile:, quiet: false, timeout:)
       if debug
         Logger.level = ::Logger::DEBUG
         Logger.formatter = proc do |serverity, time, _progname, msg|
@@ -44,11 +35,8 @@ module Cuesmash
         end
       end
 
-      # Update the plist
-      # update_plist(scheme, app.app_path)
-
       # Update the appium.txt file
-      create_appium_txt(app: app.app_path, device_name: device, platform_version: os, timeout: timeout)
+      create_appium_txt(avd: avd, app: app.app_path, timeout: timeout)
 
       # start the appium server
       app_server = AppiumServer.new
@@ -56,15 +44,11 @@ module Cuesmash
 
       # Run the tests
       run_tests(tags: tags, profile: profile, format: format, output: output, quiet: quiet)
-
-      # Stop the Appium server
-      # app_server.stop_server
     end # execute
 
     #
     # Run the cucumber tests, that's why we're here afterall
     #
-    # @param ios [String] The iOS version to test with
     # @param tags [Array] The cucumber tags to test with
     # @param profile [String] cucumber profile to use
     # @param format [String] The output format for the cucumber tests, Optional
@@ -87,12 +71,11 @@ module Cuesmash
     # @param app [String] path to built .app file
     # @param timeout [String] time in seconds to set the newCommandTimeout to.
     #
-    def self.create_appium_txt(platform_name: 'iOS', device_name:, platform_version:, app:, timeout:)
-      appium = AppiumText.new(platform_name: platform_name,
-                              device_name: device_name,
-                              platform_version: platform_version,
-                              app: app,
-                              new_command_timeout: timeout)
+    def self.create_appium_txt(platform_name: 'Android', avd:, app:, timeout:)
+      appium = Cuesmash::AndroidAppiumText.new(platform_name: platform_name,
+                                               avd: avd,
+                                               app: app,
+                                               new_command_timeout: timeout)
       appium.execute
     end
   end # class Command

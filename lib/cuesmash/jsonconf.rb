@@ -1,21 +1,20 @@
 #!/usr/bin/env ruby
 # coding: utf-8
 
+require 'json'
+
 module Cuesmash
   #
-  # Does some fun stuff with Xcode jsons, cuesmash needs to update
-  # the Xcode projects json to trick the simulator into connecting
+  # Cuesmash needs to create a json file in the iOS or Android project to trick the simulator into connecting
   # to a sinatra server instead
   #
   # @author [jarod]
   #
   class JsonConf
-    # include Logging
-
     # Public: the Scheme the json is related to
-    attr_accessor :scheme
-    attr_accessor :tmp_dir
     attr_accessor :file_name
+    attr_accessor :app_path
+    attr_accessor :port
 
     #
     # Create a new json instance
@@ -24,11 +23,10 @@ module Cuesmash
     # @param  file_name [String] Default: server_config. The name of the file with the server configurations.
     #
     # @return [JsonConf] A JsonConf instance
-    def initialize(scheme:, app_path:, file_name: 'server_config')
-      @scheme = scheme
-      @tmp_dir = tmp_dir
+    def initialize(app_path:, file_name: 'server_config', port:)
       @file_name = file_name
       @app_path = app_path
+      @port = port
     end
 
     #
@@ -37,7 +35,6 @@ module Cuesmash
     def execute
       started
       update
-      clear
 
       completed
     end
@@ -63,7 +60,12 @@ module Cuesmash
     # with sinatras port and URL
     #
     def update
-      # create the json file
+      data = {
+        url_preference: "#{server_ip}",
+        port_preference: "#{@port}"
+      }
+
+      File.write(server_json_path, data.to_json)
     end
 
     #

@@ -2,8 +2,7 @@
 # coding: utf-8
 
 require 'optparse'
-require "open3"
-require 'cfpropertylist'
+require 'open3'
 require 'find'
 require 'socket'
 require 'fileutils'
@@ -13,11 +12,11 @@ require 'yaml'
 
 require 'cuesmash/command'
 require 'cuesmash/compiler'
-require 'cuesmash/plist'
 require 'cuesmash/cucumber'
 require 'cuesmash/appium_text'
-require 'cuesmash/iosapp'
+require 'cuesmash/ios_app'
 require 'cuesmash/appium_server'
+require 'cuesmash/jsonconf'
 
 module Cuesmash
   PORT = 4567
