@@ -48,7 +48,6 @@ module Cuesmash
                   aliases: '-c', desc: 'turn on settings for building on Travis CI'
     method_option :profile, type: :string, aliases: '-p', desc: 'which cucumber.yml profile to use'
     method_option :quiet, type: :boolean, aliases: '-q', desc: 'cucumber quiet mode'
-    # method_option :server, type: :string, aliases: "-r", desc: ""
     def test
       # get the cuesmash.yml config
       @config = load_config
@@ -183,7 +182,9 @@ module Cuesmash
       # helper methods
       #
       def setup_ios
-        @app = IosApp.new(file_name: options[:scheme].join(' '), build_configuration: @config['build_configuration'], app_name: @config['app_name'])
+        @app = IosApp.new(file_name: options[:scheme].join(' '),
+                          build_configuration: @config['build_configuration'],
+                          app_name: @config['app_name'])
 
         # Compile the project
         compiler = Cuesmash::IosCompiler.new(scheme: options[:scheme].join(' '),

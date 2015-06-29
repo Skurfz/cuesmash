@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "cuesmash"
-  spec.version       = "0.3"
+  spec.version       = "0.3.0"
   spec.authors       = ["Alex Fish", "Jarod McBride", "Tiago Castro"]
   spec.email         = ["fish@ustwo.co.uk", "jarod@ustwo.com", "castro@ustwo.com"]
   spec.description   = "Appium project manager"
@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov', '~> 0.10.0'
 
   spec.add_runtime_dependency 'thor', '>= 0.19.1'
-  spec.add_runtime_dependency 'xcpretty', '>= 0.1.7'
+  spec.add_runtime_dependency 'xcpretty', '>= 0.1.10'
   spec.add_runtime_dependency 'rest-client', '~> 1.7.2'
 
   spec.executables << "cuesmash"
