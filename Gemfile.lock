@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    cuesmash (0.3)
+    cuesmash (0.3.0)
       rest-client (~> 1.7.2)
       thor (>= 0.19.1)
-      xcpretty (>= 0.1.7)
+      xcpretty (>= 0.1.10)
 
 GEM
   remote: https://rubygems.org/
@@ -71,7 +71,7 @@ GEM
     thor (0.19.1)
     timers (4.0.1)
       hitimes
-    xcpretty (0.1.9)
+    xcpretty (0.1.10)
 
 PLATFORMS
   ruby
