@@ -37,3 +37,8 @@ default:
 
 platform: 'Android'
 build_configuration: 'local-Defaulttheme-Debug'
+
+mock_server_conf:
+  path: 'PowaTagApplication/PowaTagApplication'
+  name: 'server_conf'
+  port: '4567'

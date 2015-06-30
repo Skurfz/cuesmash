@@ -9,6 +9,7 @@ require 'cuesmash/android_compiler'
 require 'cuesmash/android_command'
 require 'cuesmash/setup'
 require 'byebug'
+require 'json'
 
 module Cuesmash
   CONFIG_FILE = '.cuesmash.yml'
@@ -22,7 +23,8 @@ module Cuesmash
 
     desc 'test OPTIONS', 'run the tests'
     long_desc <<-LONGDESC
-      --tags -t the tags to pass to cucumber, for multiple tags pass one per tag. See cucumber tags for more info. https://github.com/cucumber/cucumber/wiki/Tags\n
+      --tags -t the tags to pass to cucumber, for multiple tags pass one per tag.
+                See cucumber tags for more info. https://github.com/cucumber/cucumber/wiki/Tags\n
       --output -o The output directory for the test report --not yet implemented--\n
       --format -f The format of the test report --not yet implemented--\n
       --scheme -s iOS only: the Xcode scheme to build\n
@@ -46,10 +48,17 @@ module Cuesmash
                   aliases: '-c', desc: 'turn on settings for building on Travis CI'
     method_option :profile, type: :string, aliases: '-p', desc: 'which cucumber.yml profile to use'
     method_option :quiet, type: :boolean, aliases: '-q', desc: 'cucumber quiet mode'
-    # method_option :server, type: :string, aliases: "-r", desc: ""
     def test
       # get the cuesmash.yml config
       @config = load_config
+
+      unless @config['mock_server_conf'].nil?
+        mock_server = JsonConf.new(app_path: @config['mock_server_conf']['path'],
+                                   file_name: @config['mock_server_conf']['name'],
+                                   port: @config['mock_server_conf']['port'])
+
+        mock_server.execute
+      end
 
       # Compile the project
       if @config['platform'] == 'iOS'
@@ -110,7 +119,6 @@ module Cuesmash
                                              timeout: @config['default']['test_timeout'].to_s)
           end # device each
         end
-
       else
         say "please set platform: 'iOS' or 'Android' in your .cuesmash.yml file", :red
         return
@@ -124,7 +132,6 @@ module Cuesmash
     LONGDESC
     method_option :scheme, type: :array, aliases: '-s', desc: 'the Xcode scheme to build'
     method_option :app_name, type: :string, aliases: '-n', desc: 'Android only: the name of the app'
-
     def build
       # get the cuesmash.yml config
       @config = load_config
@@ -133,6 +140,14 @@ module Cuesmash
       if @config['default'].nil?
         say 'add a default device and os version to the .cuesmash.yml', :red
         return
+      end
+
+      unless @config['mock_server_conf'].nil?
+        mock_server = JsonConf.new(app_path: @config['mock_server_conf']['path'],
+                                   file_name: @config['mock_server_conf']['name'],
+                                   port: @config['mock_server_conf']['port'])
+
+        mock_server.execute
       end
 
       if @config['platform'] == 'iOS'
@@ -167,7 +182,9 @@ module Cuesmash
       # helper methods
       #
       def setup_ios
-        @app = IosApp.new(file_name: options[:scheme].join(' '), build_configuration: @config['build_configuration'], app_name: @config['app_name'])
+        @app = IosApp.new(file_name: options[:scheme].join(' '),
+                          build_configuration: @config['build_configuration'],
+                          app_name: @config['app_name'])
 
         # Compile the project
         compiler = Cuesmash::IosCompiler.new(scheme: options[:scheme].join(' '),

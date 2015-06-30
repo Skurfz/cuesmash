@@ -62,18 +62,6 @@ module Cuesmash
     end # execute
 
     #
-    # Update the applications plist so that the application
-    # connects to sinatra
-    #
-    # @param scheme [String] The scheme related to the application
-    # @param app_path [String] The path to the app
-    #
-    def self.update_plist(scheme, app_path)
-      plist = Cuesmash::Plist.new(scheme, app_path)
-      plist.execute
-    end
-
-    #
     # Run the cucumber tests, that's why we're here afterall
     #
     # @param ios [String] The iOS version to test with
