@@ -16,6 +16,9 @@ module Cuesmash
 
   # For information on how this class works see the thor documentation https://github.com/erikhuda/thor/wiki
   class Start < Thor
+    package_name 'cuesmash'
+    class_option :version, aliases: '-v', desc: 'The version of cuesmash running'
+
     desc 'init', 'set up the project'
     def init
       Cuesmash::Setup.setup
@@ -62,26 +65,36 @@ module Cuesmash
 
       # Compile the project
       if @config['platform'] == 'iOS'
-
-        setup_ios
-
         # enumerate over each device / OS combination and run the tests.
         @config['devices'].each do |device, oses|
-          oses.each do |os|
-            say 'Cleaning up iOS Simulator'
-            reset_ios_simulator
-
-            say "\n============================\ntesting iOS #{os} on #{device}", :green
-            Cuesmash::Command.execute(device: device,
-                                      os: os,
-                                      scheme: options[:scheme],
-                                      tags: options[:tags],
-                                      debug: options[:debug],
-                                      app: @app,
-                                      profile: options[:profile],
-                                      quiet: options[:quiet],
-                                      timeout: @config['default']['test_timeout'].to_s)
-          end
+          oses.each do |os_number, ios_uuid|
+            setup_ios(device: ios_uuid)
+            case
+            when ios_uuid.nil?
+              say "\n============================\ntesting iOS #{os_number} on #{device}", :green
+              Cuesmash::Command.execute(device: device,
+                                        os: os_number,
+                                        scheme: options[:scheme],
+                                        tags: options[:tags],
+                                        debug: options[:debug],
+                                        app: @app,
+                                        profile: options[:profile],
+                                        quiet: options[:quiet],
+                                        timeout: @config['default']['test_timeout'].to_s)
+            else
+              say "\n============================\ntesting iOS #{os_number} on #{device}", :green
+              Cuesmash::Command.execute(device: device,
+                                        os: os_number,
+                                        scheme: options[:scheme],
+                                        tags: options[:tags],
+                                        debug: options[:debug],
+                                        app: @app,
+                                        profile: options[:profile],
+                                        quiet: options[:quiet],
+                                        timeout: @config['default']['test_timeout'].to_s,
+                                        ios_uuid: @config)
+            end # case
+          end # os each
         end # device each
 
         # clean up the temp dir
@@ -151,7 +164,7 @@ module Cuesmash
       end
 
       if @config['platform'] == 'iOS'
-        setup_ios
+        setup_ios(device: @config['default']['uuid'])
       elsif @config['platform'] == 'Android'
         say 'Setting up android'
         setup_android
@@ -179,21 +192,25 @@ module Cuesmash
       end # load_config
 
       #
-      # helper methods
+      # helper method to setup and compile the iOS app
       #
-      def setup_ios
+      # @param [string] device: nil <the UUID of the device to run on or nil if running on simulator>
+      #
+      def setup_ios(device: nil)
         @app = IosApp.new(file_name: options[:scheme].join(' '),
                           build_configuration: @config['build_configuration'],
-                          app_name: @config['app_name'])
+                          app_name: @config['app_name'],
+                          device: device)
 
         # Compile the project
         compiler = Cuesmash::IosCompiler.new(scheme: options[:scheme].join(' '),
                                              tmp_dir: @app.tmp_dir,
-                                             build_configuration: @config['build_configuration'])
+                                             build_configuration: @config['build_configuration'],
+                                             device: device)
         compiler.compile
 
         ios_appium_text
-      end
+      end # setup_ios
 
       #
       # helper method for setting up android build
@@ -208,7 +225,7 @@ module Cuesmash
         compiler.compile
 
         android_appium_text
-      end
+      end # setup_android
 
       #
       # iOS Appium text file set up
@@ -220,7 +237,7 @@ module Cuesmash
                                           app: @app.app_path,
                                           new_command_timeout: @config['default']['test_timeout'].to_s)
         appium.execute
-      end
+      end # ios_appium_text
 
       #
       # Android Appium text file set up
@@ -231,16 +248,7 @@ module Cuesmash
                                                  app: @app.app_path,
                                                  new_command_timeout: @config['default']['test_timeout'].to_s)
         appium.execute
-      end
-
-      # android_appium_text
-
-      #
-      # Removes the settings and contents for the iOS simulator.
-      #
-      # @return [type] [description]
-      def reset_ios_simulator
-      end
+      end # android_appium_text
     end # no_commands
   end # Start class
 end # module Cuesmash
