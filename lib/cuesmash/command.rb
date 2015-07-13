@@ -36,7 +36,8 @@ module Cuesmash
                      app:,
                      profile:,
                      quiet: false,
-                     timeout:)
+                     timeout:,
+                     ios_uuid: nil)
       if debug
         Logger.level = ::Logger::DEBUG
         Logger.formatter = proc do |serverity, time, _progname, msg|
@@ -51,7 +52,11 @@ module Cuesmash
       create_appium_txt(app: app.app_path, device_name: device, platform_version: os, timeout: timeout)
 
       # start the appium server
-      app_server = AppiumServer.new
+      if @ios_uuid
+        app_server = AppiumServer.new(ios_uuid: ios_uuid)
+      else
+        app_server = AppiumServer.new
+      end
       app_server.start_server
 
       # Run the tests

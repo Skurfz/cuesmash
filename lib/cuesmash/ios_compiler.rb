@@ -11,10 +11,11 @@ module Cuesmash
     attr_accessor :tmp_dir
     attr_accessor :build_configuration
 
-    def initialize(scheme:, tmp_dir:, build_configuration:)
+    def initialize(scheme:, tmp_dir:, build_configuration:, device: nil)
       @scheme = scheme
       @tmp_dir = tmp_dir
       @build_configuration = build_configuration
+      @device = device
     end
 
     #
@@ -23,7 +24,16 @@ module Cuesmash
     #
     # @return [String] The full xcode build command with args
     def command
-      xcode_command = "set -o pipefail && xcodebuild #{workspace} -scheme '#{@scheme}' -derivedDataPath #{@tmp_dir.shellescape} -configuration #{@build_configuration} OBJROOT=#{@tmp_dir.shellescape} SYMROOT=#{@tmp_dir.shellescape} -sdk iphonesimulator build | bundle exec xcpretty -c"
+      xcode_command = 'set -o pipefail '
+      xcode_command << "&& xcodebuild #{workspace} "
+      xcode_command << "-scheme '#{@scheme}' "
+      xcode_command << "-derivedDataPath #{@tmp_dir.shellescape} "
+      xcode_command << "-configuration #{@build_configuration} "
+      xcode_command << "OBJROOT=#{@tmp_dir.shellescape} "
+      xcode_command << "SYMROOT=#{@tmp_dir.shellescape} "
+      xcode_command << '-sdk iphonesimulator ' if @device.nil?
+      xcode_command << 'build '
+      xcode_command << '| bundle exec xcpretty -c'
 
       Logger.info "xcode_command == #{xcode_command}"
       xcode_command
