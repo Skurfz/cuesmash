@@ -67,10 +67,10 @@ module Cuesmash
       if @config['platform'] == 'iOS'
         # enumerate over each device / OS combination and run the tests.
         @config['devices'].each do |device, oses|
-          oses.each do |os_number, ios_uuid|
-            setup_ios(device: ios_uuid)
+          oses.each do |os_number, ios_udid|
+            setup_ios(device: ios_udid)
             case
-            when ios_uuid.nil?
+            when ios_udid.nil?
               say "\n============================\ntesting iOS #{os_number} on #{device}", :green
               Cuesmash::Command.execute(device: device,
                                         os: os_number,
@@ -92,7 +92,7 @@ module Cuesmash
                                         profile: options[:profile],
                                         quiet: options[:quiet],
                                         timeout: @config['default']['test_timeout'].to_s,
-                                        ios_uuid: ios_uuid)
+                                        ios_udid: ios_udid)
             end # case
           end # os each
         end # device each
@@ -164,7 +164,7 @@ module Cuesmash
       end
 
       if @config['platform'] == 'iOS'
-        setup_ios(device: @config['default']['uuid'])
+        setup_ios(device: @config['default']['udid'])
       elsif @config['platform'] == 'Android'
         say 'Setting up android'
         setup_android
@@ -194,7 +194,7 @@ module Cuesmash
       #
       # helper method to setup and compile the iOS app
       #
-      # @param [string] device: nil <the UUID of the device to run on or nil if running on simulator>
+      # @param [string] device: nil <the UDID of the device to run on or nil if running on simulator>
       #
       def setup_ios(device: nil)
         @app = IosApp.new(file_name: options[:scheme].join(' '),

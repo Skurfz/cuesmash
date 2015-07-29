@@ -14,14 +14,14 @@ module Cuesmash
     # Public: the output format for the tests
     attr_accessor :format
 
-    # Public: uuid of ios device to run test on.
-    attr_accessor :ios_uuid
+    # Public: udid of ios device to run test on.
+    attr_accessor :ios_udid
 
     #
     # Create a new instance of AppiumServer
     #
-    def initialize(ios_uuid: nil)
-      @ios_uuid = ios_uuid
+    def initialize(ios_udid: nil)
+      @ios_udid = ios_udid
     end
 
     #
@@ -31,7 +31,7 @@ module Cuesmash
       started
 
       command = 'appium --log-level debug '
-      command << "--udid #{@ios_uuid} --session-override " unless @ios_uuid.nil?
+      command << "--udid #{@ios_udid} --session-override " unless @ios_udid.nil?
 
       @stdin, @stdout, @stderr, @wait_thr = Open3.popen3(command)
       Logger.info "Appium running with pid: #{@wait_thr.pid}"
