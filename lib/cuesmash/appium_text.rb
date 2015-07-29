@@ -69,6 +69,7 @@ module Cuesmash
       text << "app = \"#{app}\"\n"
       text << "newCommandTimeout = \"#{new_command_timeout}\"\n"
       text << "udid = \"#{udid}\"\n" unless udid.nil?
+      text << "browserName = \"Safari\"\n"
       Logger.debug "appium.text == #{text}"
       text
     end
