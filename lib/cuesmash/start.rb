@@ -92,7 +92,7 @@ module Cuesmash
                                         profile: options[:profile],
                                         quiet: options[:quiet],
                                         timeout: @config['default']['test_timeout'].to_s,
-                                        ios_uuid: @config)
+                                        ios_uuid: ios_uuid)
             end # case
           end # os each
         end # device each
@@ -235,7 +235,8 @@ module Cuesmash
                                           device_name: @config['default']['os'],
                                           platform_version: @config['default']['version'].to_s,
                                           app: @app.app_path,
-                                          new_command_timeout: @config['default']['test_timeout'].to_s)
+                                          new_command_timeout: @config['default']['test_timeout'].to_s,
+                                          udid: @config['default']['udid'])
         appium.execute
       end # ios_appium_text
 

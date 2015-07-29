@@ -4,10 +4,10 @@ describe Cuesmash::AppiumText do
 
   describe "when creating a new instance" do
     before(:all) do
-      @appiumtext = Cuesmash::AppiumText.new(platform_name: "iOS", device_name: "iPhone Simulator", platform_version: "7.1", app: "MyApp", new_command_timeout: "90")
+      @appiumtext = Cuesmash::AppiumText.new(platform_name: "iOS", device_name: "iPhone Simulator", platform_version: "7.1", app: "MyApp", new_command_timeout: "90", udid: "XXXX")
     end
 
-    expected = "[caps]\nplatformName = \"iOS\"\ndeviceName = \"iPhone Simulator\"\nplatformVersion = \"7.1\"\napp = \"MyApp\"\nnewCommandTimeout = \"90\"\n"
+    expected = "[caps]\nplatformName = \"iOS\"\ndeviceName = \"iPhone Simulator\"\nplatformVersion = \"7.1\"\napp = \"MyApp\"\nnewCommandTimeout = \"90\"\nudid = \"XXXX\"\n"
 
     it "should have a platform name" do
       expect(@appiumtext.platform_name).to match("iOS")
