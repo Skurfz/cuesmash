@@ -27,7 +27,7 @@ module Cuesmash
     # @param [String] file_name: This usually is the scheme of the xcode project
     # @param [String] build_configuration: which iOS build configuration to run i.e. Release, Debug
     # @param [String] app_name: name of the app
-    # @param [String] device: nil the UUID of the device to run on or nil if running on simulator
+    # @param [String] device: nil the UDID of the device to run on or nil if running on simulator
     #
     def initialize(file_name:, build_configuration:, app_name:, device: nil)
       app_name = file_name if app_name.nil?

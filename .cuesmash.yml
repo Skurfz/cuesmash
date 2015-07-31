@@ -24,7 +24,7 @@ default:
   os: iPhone 6
   version: 8.3
   test_timeout: 120
-  uuid: 'bd79098904d9b93a418ac821db8372ee7374cf82'
+  udid: 'bd79098904d9b93a418ac821db8372ee7374cf82'
 
 platform: 'iOS'
 build_configuration: 'Debug'

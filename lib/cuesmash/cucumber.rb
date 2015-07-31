@@ -42,21 +42,18 @@ module Cuesmash
 
       status = nil
 
-      Logger.debug "cucumber_command == #{command}"
-
-      Open3.popen3 command do |_stdin, out, err, wait_thr|
-        [out, err].each do |stream|
+      Open3.popen3(command) do |_stdin, stdout, stderr, wait_thr|
+        [stdout, stderr].each do |stream|
           Thread.new do
             until (line = stream.gets).nil?
-              Logger.info line
+              Logger.info "[Cucumber] #{line}"
             end
           end
         end
-
         wait_thr.join
         status = wait_thr.value.exitstatus
       end
-
+      
       if status != 0
         Logger.info 'Cucumber failed'
         status

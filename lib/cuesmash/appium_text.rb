@@ -14,6 +14,7 @@ module Cuesmash
     attr_accessor :device_name
     attr_accessor :new_command_timeout
     attr_accessor :appium_text_for_file
+    attr_accessor :udid
 
     #
     # Create a new appium_text instance. These params are based off the appium.txt
@@ -25,12 +26,13 @@ module Cuesmash
     # @param  app [String] path to built .app file
     #
     # @return [AppiumText] A appiumtext instance
-    def initialize(platform_name:, device_name:, platform_version: nil, app:, new_command_timeout: 60)
+    def initialize(platform_name:, device_name:, platform_version: nil, app:, new_command_timeout: 60, udid: nil)
       @platform_name = platform_name
       @device_name = device_name
       @platform_version = platform_version
       @app = app
       @new_command_timeout = new_command_timeout
+      @udid = udid
     end
 
     def execute
@@ -66,6 +68,7 @@ module Cuesmash
       text << "platformVersion = \"#{platform_version}\"\n" unless platform_version.nil?
       text << "app = \"#{app}\"\n"
       text << "newCommandTimeout = \"#{new_command_timeout}\"\n"
+      text << "udid = \"#{udid}\"\n" unless udid.nil?
       Logger.debug "appium.text == #{text}"
       text
     end

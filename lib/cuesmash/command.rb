@@ -37,7 +37,7 @@ module Cuesmash
                      profile:,
                      quiet: false,
                      timeout:,
-                     ios_uuid: nil)
+                     ios_udid: nil)
       if debug
         Logger.level = ::Logger::DEBUG
         Logger.formatter = proc do |serverity, time, _progname, msg|
@@ -45,18 +45,11 @@ module Cuesmash
         end
       end
 
-      # Update the plist
-      # update_plist(scheme, app.app_path)
-
       # Update the appium.txt file
-      create_appium_txt(app: app.app_path, device_name: device, platform_version: os, timeout: timeout)
+      create_appium_txt(app: app.app_path, device_name: device, platform_version: os, timeout: timeout, udid: ios_udid)
 
       # start the appium server
-      if @ios_uuid
-        app_server = AppiumServer.new(ios_uuid: ios_uuid)
-      else
-        app_server = AppiumServer.new
-      end
+      app_server = AppiumServer.new
       app_server.start_server
 
       # Run the tests
@@ -92,12 +85,13 @@ module Cuesmash
     # @param app [String] path to built .app file
     # @param timeout [String] time in seconds to set the newCommandTimeout to.
     #
-    def self.create_appium_txt(platform_name: 'iOS', device_name:, platform_version:, app:, timeout:)
+    def self.create_appium_txt(platform_name: 'iOS', device_name:, platform_version:, app:, timeout:, udid: nil)
       appium = AppiumText.new(platform_name: platform_name,
                               device_name: device_name,
                               platform_version: platform_version,
                               app: app,
-                              new_command_timeout: timeout)
+                              new_command_timeout: timeout,
+                              udid: udid)
       appium.execute
     end
   end # class Command

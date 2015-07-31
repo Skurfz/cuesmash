@@ -14,37 +14,29 @@ module Cuesmash
     # Public: the output format for the tests
     attr_accessor :format
 
-    # Public: uuid of ios device to run test on.
-    attr_accessor :ios_uuid
-
-    #
-    # Create a new instance of AppiumServer
-    #
-    def initialize(ios_uuid: nil)
-      @ios_uuid = ios_uuid
-    end
-
     #
     # Run the appium server
     #
     def start_server
       started
 
-      command = 'appium --log-level debug '
-      command << "--udid #{@ios_uuid} --session-override " unless @ios_uuid.nil?
+      command = 'appium --log-level debug'
 
       @stdin, @stdout, @stderr, @wait_thr = Open3.popen3(command)
-      Logger.info "Appium running with pid: #{@wait_thr.pid}"
+      Logger.info "Appium started with pid: #{@wait_thr.pid}"
 
       if Logger.debug?
         [@stdout, @stderr].each do |stream|
           Thread.new do
             until (line = stream.gets).nil?
-              Logger.debug line
+              Logger.debug "[Appium] #{line}"
             end
           end
         end
       end
+      # looks like the we need to wait for the service to start up
+      # This isn't good, we should create a check to verify first.
+      sleep 3
     end
 
     #
