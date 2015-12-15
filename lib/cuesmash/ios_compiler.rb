@@ -11,11 +11,12 @@ module Cuesmash
     attr_accessor :tmp_dir
     attr_accessor :build_configuration
 
-    def initialize(scheme:, tmp_dir:, build_configuration:, device: nil)
+    def initialize(scheme:, tmp_dir:, build_configuration:, device: nil, device_name: nil)
       @scheme = scheme
       @tmp_dir = tmp_dir
       @build_configuration = build_configuration
       @device = device
+      @device_name = device_name
     end
 
     #
@@ -31,7 +32,7 @@ module Cuesmash
       xcode_command << "-configuration #{@build_configuration} "
       xcode_command << "OBJROOT=#{@tmp_dir.shellescape} "
       xcode_command << "SYMROOT=#{@tmp_dir.shellescape} "
-      xcode_command << '-sdk iphonesimulator ' if @device.nil?
+      xcode_command << "-destination 'platform=iOS Simulator,name=#{@device_name}' " if @device.nil?
       xcode_command << 'build '
       xcode_command << '| bundle exec xcpretty -c'
 

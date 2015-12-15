@@ -67,13 +67,13 @@ module Cuesmash
       if @config['platform'] == 'iOS'
         # enumerate over each device / OS combination and run the tests.
         @config['devices'].each do |device, oses|
-          oses.each do |os_number, ios_udid|
+          oses.each do |device_name, ios_udid|
             setup_ios(device: ios_udid)
             case
             when ios_udid.nil?
-              say "\n============================\ntesting iOS #{os_number} on #{device}", :green
+              say "\n============================\ntesting iOS #{device_name} on #{device}", :green
               Cuesmash::Command.execute(device: device,
-                                        os: os_number,
+                                        device_name: device_name,
                                         scheme: options[:scheme],
                                         tags: options[:tags],
                                         debug: options[:debug],
@@ -82,9 +82,9 @@ module Cuesmash
                                         quiet: options[:quiet],
                                         timeout: @config['default']['test_timeout'].to_s)
             else
-              say "\n============================\ntesting iOS #{os_number} on #{device}", :green
+              say "\n============================\ntesting iOS #{device_name} on #{device}", :green
               Cuesmash::Command.execute(device: device,
-                                        os: os_number,
+                                        device_name: device_name,
                                         scheme: options[:scheme],
                                         tags: options[:tags],
                                         debug: options[:debug],
@@ -201,12 +201,13 @@ module Cuesmash
                           build_configuration: @config['build_configuration'],
                           app_name: @config['app_name'],
                           device: device)
-
         # Compile the project
+
         compiler = Cuesmash::IosCompiler.new(scheme: options[:scheme].join(' '),
                                              tmp_dir: @app.tmp_dir,
                                              build_configuration: @config['build_configuration'],
-                                             device: device)
+                                             device: device,
+                                             device_name: @config['default']['device_name'])
         compiler.compile
 
         ios_appium_text
@@ -232,8 +233,8 @@ module Cuesmash
       #
       def ios_appium_text
         appium = Cuesmash::AppiumText.new(platform_name: 'iOS',
-                                          device_name: @config['default']['os'],
-                                          platform_version: @config['default']['version'].to_s,
+                                          device_name: @config['default']['device_name'],
+                                          platform_version: @config['default']['platform_version'].to_s,
                                           app: @app.app_path,
                                           new_command_timeout: @config['default']['test_timeout'].to_s,
                                           udid: @config['default']['udid'])

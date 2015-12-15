@@ -1,0 +1,103 @@
+Index: lib/cuesmash/command.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- lib/cuesmash/command.rb	(revision 7569d82f72199a749394fe6a17b95c74d698ca77)
++++ lib/cuesmash/command.rb	(revision )
+@@ -28,6 +28,7 @@
+     # @return [type] [description]
+     def self.execute(device:,
+                      os:,
++                     scheme:,
+                      tags:,
+                      debug: false,
+                      format: nil,
+Index: lib/cuesmash/start.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- lib/cuesmash/start.rb	(revision 7569d82f72199a749394fe6a17b95c74d698ca77)
++++ lib/cuesmash/start.rb	(revision )
+@@ -54,8 +54,8 @@
+       # Compile the project
+       if @config['platform'] == 'iOS'
+ 
+-        # Create new IosApp object
+-        @app = IosApp.new(file_name: options[:scheme].join(' '), build_configuration: @config['build_configuration'])
++        # # Create new IosApp object
++        # @app = IosApp.new(file_name: options[:scheme].join(' '), build_configuration: @config['build_configuration'])
+ 
+         setup_ios
+ 
+@@ -68,9 +68,8 @@
+             say "\n============================\ntesting iOS #{os} on #{device}", :green
+             Cuesmash::Command.execute(device: device,
+                                       os: os,
+-                                      server: options[:server],
++                                      scheme: options[:scheme],
+                                       tags: options[:tags],
+-                                      scheme: options[:scheme].join(' '),
+                                       debug: options[:debug],
+                                       app: @app,
+                                       profile: options[:profile],
+Index: Gemfile.lock
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Gemfile.lock	(revision 7569d82f72199a749394fe6a17b95c74d698ca77)
++++ Gemfile.lock	(revision )
+@@ -1,7 +1,7 @@
+ PATH
+   remote: .
+   specs:
+-    cuesmash (0.1.9.7)
++    cuesmash (0.1.9.9)
+       CFPropertyList (>= 2.2.8)
+       rest-client (~> 1.7.2)
+       thor (>= 0.19.1)
+@@ -10,7 +10,7 @@
+ GEM
+   remote: https://rubygems.org/
+   specs:
+-    CFPropertyList (2.3.0)
++    CFPropertyList (2.3.1)
+     byebug (3.5.1)
+       columnize (~> 0.8)
+       debugger-linecache (~> 1.2)
+@@ -42,7 +42,7 @@
+     method_source (0.8.2)
+     mime-types (2.4.3)
+     multi_json (1.10.1)
+-    netrc (0.10.2)
++    netrc (0.10.3)
+     pry (0.10.1)
+       coderay (~> 1.1.0)
+       method_source (~> 0.8.1)
+@@ -51,7 +51,7 @@
+     rb-fsevent (0.9.4)
+     rb-inotify (0.9.5)
+       ffi (>= 0.5.0)
+-    rest-client (1.7.2)
++    rest-client (1.7.3)
+       mime-types (>= 1.16, < 3.0)
+       netrc (~> 0.7)
+     rspec (3.1.0)
+Index: cuesmash.gemspec
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- cuesmash.gemspec	(revision 7569d82f72199a749394fe6a17b95c74d698ca77)
++++ cuesmash.gemspec	(revision )
+@@ -4,7 +4,7 @@
+ 
+ Gem::Specification.new do |spec|
+   spec.name          = "cuesmash"
+-  spec.version       = "0.1.9.7"
++  spec.version       = "0.1.9.9"
+   spec.authors       = ["Alex Fish", "Jarod McBride", "Tiago Castro"]
+   spec.email         = ["fish@ustwo.co.uk", "jarod@ustwo.com", "castro@ustwo.com"]
+   spec.description   = "Appium project manager"

@@ -1,0 +1,41 @@
+Index: lib/cuesmash/ios_app.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- lib/cuesmash/ios_app.rb	(revision 8d61eb6d2415f7928d931b5d227c7cba2740c146)
++++ lib/cuesmash/ios_app.rb	(revision )
+@@ -27,9 +27,14 @@
+     # @param build_configuration [String] which iOS build configuration to run i.e. Release, Debug
+     #
+     # @return [App] A app instance
+-    def initialize(file_name:, build_configuration:)
+-      @app_name = "#{file_name}" << '.app'
+-      @tmp_dir = Dir.mktmpdir(file_name)
++    def initialize(file_name:, build_configuration:, target:)
++
++      if target == ''
++        target = file_name
++      end
++
++      @app_name = "#{target}" << '.app'
++      @tmp_dir = Dir.mktmpdir(target)
+       @build_configuration = build_configuration
+ 
+       @app_dir = "#{@tmp_dir}" << "/#{@build_configuration}-iphonesimulator/"
+Index: lib/cuesmash/start.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- lib/cuesmash/start.rb	(revision 8d61eb6d2415f7928d931b5d227c7cba2740c146)
++++ lib/cuesmash/start.rb	(revision )
+@@ -154,7 +154,7 @@
+       # helper methods
+       #
+       def setup_ios
+-        @app = IosApp.new(file_name: options[:scheme].join(' '), build_configuration: @config['build_configuration'])
++        @app = IosApp.new(file_name: options[:scheme].join(' '), build_configuration: @config['build_configuration'], target: @config['target'])
+ 
+         # Compile the project
+         compiler = Cuesmash::IosCompiler.new(scheme: options[:scheme].join(' '),
