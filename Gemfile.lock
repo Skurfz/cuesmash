@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cuesmash (0.4.1)
+    cuesmash (0.5)
       rest-client (~> 1.7.2)
       thor (>= 0.19.1)
       xcpretty (>= 0.1.10)
@@ -71,7 +71,7 @@ GEM
     thor (0.19.1)
     timers (4.0.1)
       hitimes
-    xcpretty (0.1.10)
+    xcpretty (0.1.11)
 
 PLATFORMS
   ruby
@@ -85,6 +85,3 @@ DEPENDENCIES
   rake (>= 10.3.2)
   rspec (>= 3.3.0)
   simplecov (~> 0.10.0)
-
-BUNDLED WITH
-   1.10.5
