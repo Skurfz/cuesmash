@@ -74,6 +74,7 @@ Cover how to configure the travis.yml file
 ## Building and pushing
 
     - make sure all tests are passing
+    - update CHANGELOG.md
     - update `cuesmash.gemspec` version number
     - `gem build cuesmash.gemspec `
     - `gem uninstall -x cuesmash && rake install `
