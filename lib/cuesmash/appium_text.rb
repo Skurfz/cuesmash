@@ -67,7 +67,7 @@ module Cuesmash
       text << "deviceName = \"#{device_name}\"\n"
       text << "platformVersion = \"#{platform_version}\"\n" unless platform_version.nil?
       text << "app = \"#{app}\"\n"
-      text << "newCommandTimeout = \"#{new_command_timeout}\"\n"
+      text << "newCommandTimeout = #{new_command_timeout}\n"
       text << "udid = \"#{udid}\"\n" unless udid.nil?
       Logger.debug "appium.text == #{text}"
       text
